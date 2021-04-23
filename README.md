@@ -44,7 +44,7 @@ https://get.foundation/
   * Select Dropdown - Filters
   * Btn - Submit details for fetch()
 2. CSS Styling
-  *Gray out past events
+  * Gray out past events
 3. JavaScript
   * API Calls (Ticketmaster, GraphHopper)
 4. Event Handlers
