@@ -1,4 +1,4 @@
-fetch(
+/*fetch(
   "https://app.ticketmaster.com/discovery/v2/events?apikey=5SeBGIy4GsBTA6ttR5Pu2buX8RhCTCsq&radius=25&size=200&unit=miles&locale=*&startDateTime=2021-04-27T18:06:00Z&endDateTime=2021-12-31T18:06:00Z&city=Austin"
 )
   .then((response) => response.json())
@@ -9,3 +9,4 @@ fetch(
 )
   .then((response) => response.json())
   .then((data) => console.log(data));
+*/
