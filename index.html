@@ -13,7 +13,54 @@
   </head>
 
   <body>
-    <!--Event Page-->
+    <!--User Information Page-->
+    <div id="address-page">
+      <h2>Enter Your Address!</h2>
+      <p>We need your address to help find the events nearest you!</p>
+      <!--Input Form for Address-->
+      <form>
+        <label for="street">Street</label>
+        <input
+          type="text"
+          placeholder="Enter Your Street Address"
+          id="street"
+          name="street"
+        />
+        <label for="city">City</label>
+        <input
+          type="text"
+          placeholder="Enter Your City"
+          id="city"
+          name="city"
+        />
+        <label for="state">State</label>
+        <input
+          type="text"
+          placeholder="Enter Your State"
+          id="state"
+          name="state"
+        />
+        <label for="zip">Zip Code</label>
+        <input
+          type="text"
+          placeholder="Enter Your Zip Code"
+          id="zip"
+          name="zip"
+        />
+        <p>
+          <span>
+            <input type="checkbox" name="age-confirm" id="checkbox" />
+            <label for="checkbox"
+              >I acknowledge that I am at least 18 years of age.</label
+            >
+          </span>
+        </p>
+
+        <button type="submit">Next</button>
+      </form>
+    </div>
+
+    <!--Events Page-->
     <div>
       <h1>We found # events</h1>
       <h2>Near location</h2>
@@ -61,8 +108,38 @@
           <option value="distance">Sort By: Distance</option>
         </select>
       </div>
+      <!--List Events-->
+      <div></div>
+    </div>
+    <!--Directions Page-->
+    <div id="directions-page">
+      <h2>Here Is How To Get There!</h2>
+      <div id="directions-container">
+        <h3>Using Words!</h3>
+        <div id="directions">
+          <!--Enter Written Directions Here-->
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum,
+          nostrum perspiciatis molestiae sed consequatur obcaecati. Facilis,
+          illum exercitationem accusamus natus, inventore, eos veniam ipsam
+          similique deserunt dignissimos repellat quos repudiandae!
+        </div>
+      </div>
+      <div id="map-container">
+        <h3>Using Pictures!</h3>
+        <div id="map" style="width: 400px; height: 300px"></div>
+      </div>
     </div>
 
+    <script>
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoiYXdlZ2hvcnN0IiwiYSI6ImNrbnpianptdzAyYWkzMG85aG52NHY2YnYifQ.XX_caU54wujSY7FkrRplrA";
+      var map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/streets-v11",
+        center: [-97.732840383158, 30.290269669425456],
+        zoom: 9,
+      });
+    </script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
