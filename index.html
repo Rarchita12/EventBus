@@ -1,25 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <title>EventBus</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
-  <title>Document</title>
-</head>
+  <body>
+    <!--Event Page-->
+    <div>
+      <h1>We found # events</h1>
+      <h2>Near location</h2>
+      <form action="">
+        <select name="genres" id="genres">
+          <option value="default" selected disabled hidden>
+            Select Your Category
+          </option>
+          <option value="All Categories">All Categories</option>
+          <option value="Concerts">Concerts</option>
+          <option value="Sports">Sports</option>
+          <option value="ArtsTheater">Arts & Theater</option>
+          <option value="Family">Family</option>
+          <option value="Film">Film</option>
+          <option value="Misc">Misc</option>
+        </select>
 
-<body>
-  <div id='map' style='width: 400px; height: 300px;'></div>
-  <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYXdlZ2hvcnN0IiwiYSI6ImNrbnpianptdzAyYWkzMG85aG52NHY2YnYifQ.XX_caU54wujSY7FkrRplrA';
-    var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11'
-    });
-  </script>
-  <script src="./assets/js/script.js"></script>
-</body>
+        <select name="dates" id="dates">
+          <option value="default" selected disabled hidden>
+            Select Your Dates
+          </option>
+          <option value="allDates">All Dates</option>
+          <option value="weekend">This Weekend</option>
+          <option value="dateRange">Date Range</option>
+        </select>
 
+        <select name="distance" id="distance">
+          <option value="default" selected disabled hidden>
+            Select Your Distance
+          </option>
+          <option value="10">Distance: 10 mi</option>
+          <option value="25">Distance: 25 mi</option>
+          <option value="50">Distance: 50 mi</option>
+          <option value="75">Distance: 75 mi</option>
+          <option value="All">Distance: All (mi)</option>
+        </select>
+
+        <button type="submit">Submit</button>
+      </form>
+      <br />
+      <div>
+        <select name="sort" id="sort">
+          <option value="relavant">Sort By: Most Relavant</option>
+          <option value="date">Sort By: Date</option>
+          <option value="distance">Sort By: Distance</option>
+        </select>
+      </div>
+    </div>
+
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>
