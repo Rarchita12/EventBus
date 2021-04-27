@@ -1,10 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>EventBus</title>
-    </head>
-    <body>
-        <p>This is a test paragraph</p>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="address-page">
+      <h2>Enter Your Address!</h2>
+      <p>We need your address to help find the events nearest you!</p>
+      <!--Input Form for Address-->
+      <form>
+        <label for="street">Street</label>
+        <input
+          type="text"
+          placeholder="Enter Your Street Address"
+          id="street"
+          name="street"
+        />
+        <label for="city">City</label>
+        <input
+          type="text"
+          placeholder="Enter Your City"
+          id="city"
+          name="city"
+        />
+        <label for="state">State</label>
+        <input
+          type="text"
+          placeholder="Enter Your State"
+          id="state"
+          name="state"
+        />
+        <label for="zip">Zip Code</label>
+        <input
+          type="text"
+          placeholder="Enter Your Zip Code"
+          id="zip"
+          name="zip"
+        />
+        <p>
+          <span>
+            <input type="checkbox" name="age-confirm" id="checkbox" />
+            <label for="checkbox"
+              >I acknowledge that I am at least 18 years of age.</label
+            >
+          </span>
+        </p>
+
+        <button type="submit">Next</button>
+      </form>
+    </div>
+    <div id="directions-page">
+      <h2>Here Is How To Get There!</h2>
+      <div id="directions-container">
+        <h3>Using Words!</h3>
+        <div id="directions">
+          <!--Enter Written Directions Here-->
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum,
+          nostrum perspiciatis molestiae sed consequatur obcaecati. Facilis,
+          illum exercitationem accusamus natus, inventore, eos veniam ipsam
+          similique deserunt dignissimos repellat quos repudiandae!
+        </div>
+      </div>
+      <div id="map-container">
+        <h3>Using Pictures!</h3>
+        <div id="map" style="width: 400px; height: 300px"></div>
+      </div>
+    </div>
+    <script>
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoiYXdlZ2hvcnN0IiwiYSI6ImNrbnpianptdzAyYWkzMG85aG52NHY2YnYifQ.XX_caU54wujSY7FkrRplrA";
+      var map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/streets-v11",
+        center: [-97.732840383158, 30.290269669425456],
+        zoom: 9,
+      });
+    </script>
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>
