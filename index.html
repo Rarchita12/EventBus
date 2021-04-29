@@ -16,7 +16,7 @@
     <!--Hero Section-->
     <section class="hero">
       <div class="hero-div">
-        <h1>Eventbus</h1>
+        <h1>EventBus</h1>
       </div>
     </section>
     <!--End Hero Section-->
@@ -24,8 +24,11 @@
     <!--Intro Page-->
     <div id="intro-page">
       <h3>What we do!</h3>
-      <p>Eventbus is a site to find any type of neardy event and plan a route to it. If you want a specific type of event the filter dropdown
-        can help you find the specific genre or Category of event to suit your needs. Use Eventbus to find your next social event today!~ 
+      <p>
+        EventBus is a site to find any type of nearby event and plan a route to
+        it. If you want a specific type of event the filter dropdown can help
+        you find the specific genre or Category of event to suit your needs. Use
+        EventBus to find your next social event today!~
       </p>
       <button type="submit">Get Started!</button>
     </div>
@@ -119,7 +122,7 @@
       <br />
       <div>
         <select name="sort" id="sort">
-          <option value="relavant">Sort By: Most Relavant</option>
+          <option value="relevant">Sort By: Most Relevant</option>
           <option value="date">Sort By: Date</option>
           <option value="distance">Sort By: Distance</option>
         </select>
@@ -140,13 +143,31 @@
           similique deserunt dignissimos repellat quos repudiandae!
         </div>
       </div>
+      <!--Map Container-->
       <div id="map-container">
         <h3>Using Pictures!</h3>
         <div id="map" style="width: 400px; height: 300px"></div>
       </div>
+      <!--Directions Page Buttons-->
+      <div id="btn-container">
+        <button id="confirm-trip-btn">Save Trip</button>
+        <button id="start-over-btn">Plan Another Trip!</button>
+      </div>
+      <!--My Trips Page-->
+      <div id="my-trips-page">
+        <h2>My Trips</h2>
+        <div id="trips-container">
+          <div id="trip-list">
+            <div id="trip-item">Example Trip 1</div>
+            <div id="trip-item">Example Trip 2</div>
+            <div id="trip-item">Example Trip 3</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
+      //Map Styling
       mapboxgl.accessToken =
         "pk.eyJ1IjoiYXdlZ2hvcnN0IiwiYSI6ImNrbnpianptdzAyYWkzMG85aG52NHY2YnYifQ.XX_caU54wujSY7FkrRplrA";
       var map = new mapboxgl.Map({
