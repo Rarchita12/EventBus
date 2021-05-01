@@ -10,3 +10,65 @@ fetch(
   .then((response) => response.json())
   .then((data) => console.log(data));
 */
+
+
+function getUserInfo(){
+var genre = document.getElementById("genres");
+var genreSelection = genre.options[genre.selectedIndex].text;
+console.log(genreSelection);
+var dates = document.getElementById("dates");
+var datesSelection = dates.options[dates.selectedIndex].value;
+if(datesSelection === "dateRange"){
+  $("#dateRange").datepicker();
+}
+
+
+var distance = document.getElementById("distance");
+var distanceSelection = distance.options[distance.selectedIndex].value;
+console.log(distanceSelection);
+}
+
+
+function dateRange(){
+  $("#dateRange1").datepicker();
+  console.log("here");
+}
+
+
+
+fetch(
+  // Make a fetch request to Wikipedia to get a random article title
+  //`// YOUR CODE HERE`
+  //
+
+  'https://app.ticketmaster.com/discovery/v2/events.json?latlong=34.052235,-118.243683&radius=100&unit=miles&classificationName=[Other]&keyword="Other"&apikey=sn3YzS5u3eeoiEBigTAhQPKYhKDI8yUA'
+)
+  .then(function(ticketMasterResponse) {
+    //take the response and convert it to JavaScript 
+    return ticketMasterResponse.json();
+  })
+  .then(function(ticketMasterResponse) {
+    //wikiResponse is available as a JavaScript Object here
+  
+   console.log(ticketMasterResponse);
+
+  
+  });
+
+
+
+  const activities = document.getElementById('dates');
+
+activities.addEventListener('change', (e) => {
+  console.log(`e.target.value = ${ e.target.value }`);
+if( e.target.value === "dateRange"){
+  console.log("here");
+  
+  document.getElementById('myModal').style.display="block";
+  $("#datepicker").datepicker();
+  // When the user clicks on <span> (x), close the modal
+
+
+
+}
+});

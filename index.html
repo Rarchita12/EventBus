@@ -9,116 +9,52 @@
       href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>EventBus</title>
   </head>
 
   <body>
-    <!--Hero Section-->
-    <section class="hero">
-      <div class="hero-div">
-        <h1>EventBus</h1>
-      </div>
-    </section>
-    <!--End Hero Section-->
-
-    <!--Intro Page-->
-    <div id="intro-page">
-      <h3>What we do!</h3>
-      <p>
-        EventBus is a site to find any type of nearby event and plan a route to
-        it. If you want a specific type of event the filter dropdown can help
-        you find the specific genre or Category of event to suit your needs. Use
-        EventBus to find your next social event today!~
-      </p>
-      <button type="submit">Get Started!</button>
-    </div>
-    <!--User Information Page-->
-    <div id="address-page">
-      <h2>Enter Your Address!</h2>
-      <p>We need your address to help find the events nearest you!</p>
-      <!--Input Form for Address-->
-      <form>
-        <label for="street">Street</label>
-        <input
-          type="text"
-          placeholder="Enter Your Street Address"
-          id="street"
-          name="street"
-        />
-        <label for="city">City</label>
-        <input
-          type="text"
-          placeholder="Enter Your City"
-          id="city"
-          name="city"
-        />
-        <label for="state">State</label>
-        <input
-          type="text"
-          placeholder="Enter Your State"
-          id="state"
-          name="state"
-        />
-        <label for="zip">Zip Code</label>
-        <input
-          type="text"
-          placeholder="Enter Your Zip Code"
-          id="zip"
-          name="zip"
-        />
-        <p>
-          <span>
-            <input type="checkbox" name="age-confirm" id="checkbox" />
-            <label for="checkbox"
-              >I acknowledge that I am at least 18 years of age.</label
-            >
-          </span>
-        </p>
-
-        <button type="submit">Next</button>
-      </form>
-    </div>
-
     <!--Events Page-->
     <div>
       <h1>We found # events</h1>
       <h2>Near location</h2>
-      <form action="">
-        <select name="genres" id="genres">
-          <option value="default" selected disabled hidden>
-            Select Your Category
-          </option>
-          <option value="All Categories">All Categories</option>
-          <option value="Concerts">Concerts</option>
-          <option value="Sports">Sports</option>
-          <option value="ArtsTheater">Arts & Theater</option>
-          <option value="Family">Family</option>
-          <option value="Film">Film</option>
-          <option value="Misc">Misc</option>
-        </select>
 
-        <select name="dates" id="dates">
-          <option value="default" selected disabled hidden>
-            Select Your Dates
-          </option>
-          <option value="allDates">All Dates</option>
-          <option value="weekend">This Weekend</option>
-          <option value="dateRange">Date Range</option>
-        </select>
+      <select name="genres" id="genres">
+        <option value="default" selected disabled hidden>
+          Select Your Category
+        </option>
+        <option value="All Categories">All Categories</option>
+        <option value="Concerts">Concerts</option>
+        <option value="Sports">Sports</option>
+        <option value="ArtsTheater">Arts & Theatre</option>
+        <option value="Family">Family</option>
+        <option value="Film">Film</option>
+        <option value="Other">Other</option>
+      </select>
 
-        <select name="distance" id="distance">
-          <option value="default" selected disabled hidden>
-            Select Your Distance
-          </option>
-          <option value="10">Distance: 10 mi</option>
-          <option value="25">Distance: 25 mi</option>
-          <option value="50">Distance: 50 mi</option>
-          <option value="75">Distance: 75 mi</option>
-          <option value="All">Distance: All (mi)</option>
-        </select>
+      <select name="dates" id="dates">
+        <option value="default" selected disabled hidden>
+          Select Your Dates
+        </option>
+        <option value="allDates">All Dates</option>
+        <option value="weekend">This Weekend</option>
 
-        <button type="submit">Submit</button>
-      </form>
+        <option id="dateRange1" value="dateRange">Date Range</option>
+      </select>
+
+      <select name="distance" id="distance">
+        <option value="default" selected disabled hidden>
+          Select Your Distance
+        </option>
+        <option value="10">Distance: 10 mi</option>
+        <option value="25">Distance: 25 mi</option>
+        <option value="50">Distance: 50 mi</option>
+        <option value="75">Distance: 75 mi</option>
+        <option value="All">Distance: All (mi)</option>
+      </select>
+
+      <button type="submit" onclick="getUserInfo()">Submit</button>
+
       <br />
       <div>
         <select name="sort" id="sort">
@@ -127,56 +63,20 @@
           <option value="distance">Sort By: Distance</option>
         </select>
       </div>
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal" style="display: none">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <p>Date: <input type="text" id="datepicker" /></p>
+        </div>
+      </div>
+
       <!--List Events-->
       <div></div>
     </div>
-    <!--Directions Page-->
-    <div id="directions-page">
-      <h2>Here Is How To Get There!</h2>
-      <div id="directions-container">
-        <h3>Using Words!</h3>
-        <div id="directions">
-          <!--Enter Written Directions Here-->
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum,
-          nostrum perspiciatis molestiae sed consequatur obcaecati. Facilis,
-          illum exercitationem accusamus natus, inventore, eos veniam ipsam
-          similique deserunt dignissimos repellat quos repudiandae!
-        </div>
-      </div>
-      <!--Map Container-->
-      <div id="map-container">
-        <h3>Using Pictures!</h3>
-        <div id="map" style="width: 400px; height: 300px"></div>
-      </div>
-      <!--Directions Page Buttons-->
-      <div id="btn-container">
-        <button id="confirm-trip-btn">Save Trip</button>
-        <button id="start-over-btn">Plan Another Trip!</button>
-      </div>
-      <!--My Trips Page-->
-      <div id="my-trips-page">
-        <h2>My Trips</h2>
-        <div id="trips-container">
-          <div id="trip-list">
-            <div id="trip-item">Example Trip 1</div>
-            <div id="trip-item">Example Trip 2</div>
-            <div id="trip-item">Example Trip 3</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      //Map Styling
-      mapboxgl.accessToken =
-        "pk.eyJ1IjoiYXdlZ2hvcnN0IiwiYSI6ImNrbnpianptdzAyYWkzMG85aG52NHY2YnYifQ.XX_caU54wujSY7FkrRplrA";
-      var map = new mapboxgl.Map({
-        container: "map",
-        style: "mapbox://styles/mapbox/streets-v11",
-        center: [-97.732840383158, 30.290269669425456],
-        zoom: 9,
-      });
-    </script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
