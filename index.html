@@ -10,7 +10,7 @@
       href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>EventBus</title>
   </head>
 
@@ -32,9 +32,7 @@
         you find the specific genre or Category of event to suit your needs. Use
         EventBus to find your next social event today!~
       </p>
-      <button id="get-started-btn" onclick="othername();" type="submit">
-        Get Started!
-      </button>
+      <button id="get-started-btn" type="submit">Get Started!</button>
     </div>
     <!--User Information Page-->
     <div id="address-page" class="hide">
@@ -72,32 +70,25 @@
     </div>
 
     <!--Events Page-->
-    <div id="events-page" class="hide">
-      <h1>We found # events</h1>
-      <h2>Near location</h2>
+    <div id="EventsPage">
+      <!--<h1>We found # events</h1>
+      <h2>Near location</h2>-->
 
       <select name="genres" id="genres">
         <option value="default" selected disabled hidden>
           Select Your Category
         </option>
-        <option value="All Categories">All Categories</option>
+        <option value="AllCategories">All Categories</option>
         <option value="Concerts">Concerts</option>
         <option value="Sports">Sports</option>
-        <option value="ArtsTheater">Arts & Theatre</option>
+        <option value="ArtsTheatre">Arts & Theatre</option>
         <option value="Family">Family</option>
         <option value="Film">Film</option>
         <option value="Other">Other</option>
       </select>
 
-      <select name="dates" id="dates">
-        <option value="default" selected disabled hidden>
-          Select Your Dates
-        </option>
-        <option value="allDates">All Dates</option>
-        <option value="weekend">This Weekend</option>
-
-        <option id="dateRange1" value="dateRange">Date Range</option>
-      </select>
+      <span>Enter Start Date: <input type="text" id="datepicker-start" /></span>
+      <span>Enter End Date: <input type="text" id="datepicker-end" /></span>
 
       <select name="distance" id="distance">
         <option value="default" selected disabled hidden>
@@ -110,26 +101,20 @@
         <option value="All">Distance: All (mi)</option>
       </select>
 
-      <button id="test-btn" type="submit">Submit</button>
+      <select name="sort" id="sort">
+        <option value="relevance">Sort By: Most Relevant</option>
+        <option value="date">Sort By: Date</option>
+        <option value="distance">Sort By: Distance</option>
+      </select>
+
+      <button onClick="getUserInfo()" type="submit">Submit</button>
 
       <br />
-      <div>
-        <select name="sort" id="sort">
-          <option value="relevant">Sort By: Most Relevant</option>
-          <option value="date">Sort By: Date</option>
-          <option value="distance">Sort By: Distance</option>
-        </select>
-      </div>
 
-      <!-- The Modal -->
-      <div id="myModal" class="modal" style="display: none">
-        <!-- Modal content -->
-        <div class="modal-content">
-          <p>Date: <input type="text" id="datepicker" /></p>
-        </div>
-      </div>
+      <br />
+
       <!--List Events-->
-      <div></div>
+      <div id="displayEvents"></div>
     </div>
     <!--Directions Page-->
     <div id="directions-page" class="hide">
@@ -165,6 +150,8 @@
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>

@@ -1,6 +1,7 @@
 //Global Variables
 var myTrips = [];
 var userCity;
+var eventID;
 //Test Fetches
 //ticketmaster
 /*fetch(
@@ -42,7 +43,7 @@ $("#user-info-btn").on("click", function (event) {
 });
 
 //events-page submit
-$("#test-btn").on("click", function (event) {
+/*$("#event-submit-btn").on("click", function (event) {
   event.preventDefault();
 
   var userStreet = $("#user-street").val();
@@ -53,7 +54,7 @@ $("#test-btn").on("click", function (event) {
   $("#events-page").addClass("hide");
   $("#directions-page").removeClass("hide");
 });
-
+*/
 //Directions Page
 //directions page save trip
 $("#confirm-trip-btn").on("click", function (event) {
@@ -76,6 +77,8 @@ $("#plan-another-btn").on("click", function (event) {
   $("#address-page").removeClass("hide");
   $("#my-trips-page").addClass("hide");
 });
+
+/***LATLONG CONVERSION***/
 //convert input to lat/long
 function convertCity(userStreet, userCity, userState, userZip) {
   const APIKey =
@@ -87,11 +90,236 @@ function convertCity(userStreet, userCity, userState, userZip) {
     method: "GET",
   }).then(function (userCityResponse) {
     getRoute(userCityResponse);
-    console.clear();
+   // getUserInfo(userCityResponse);
+    //console.clear();
     console.log("Matched User City =", userCityResponse.features[0].place_name);
+    console.log(userCityResponse.features[0].center[1]);
     //displayEventsPage(userCityResponse);
   });
 }
+
+/***EVENTS PAGE***/
+function getUserInfo() {
+  console.log("hello");
+  var genre = document.getElementById("genres");
+  var genreSelection = genre.options[genre.selectedIndex].value;
+  var keyword1;
+  var classify;
+  var radius;
+  var sortSelect;
+  var userStreet = $("#user-street").val();
+  var userCity = $("#user-city").val();
+  var userState = $("#user-state").val();
+  var userZip = $("#user-zip").val();
+  //var lat = userCityResponse.features[0].center[1];
+  //var long = userCityResponse.features[0].center[0];
+  //var lat = convertCity(userStreet, userCity, userState, userZip);
+  //console.log(lat);
+  //NEED TO ADD GENRE
+  if (genreSelection === "Sports") {
+    keyword1 = "Sports";
+    classify = "Sports";
+  } else if (genreSelection === "ArtsTheatre") {
+    keyword1 = "Arts & Theatre";
+    classify = "Arts & Theatre";
+  } else if (genreSelection === "Family") {
+    keyword1 = "Family";
+    classify = "Family";
+  } else if (genreSelection === "Film") {
+    keyword1 = "Film";
+    classify = "Film";
+  } else if (genreSelection === "Other") {
+    keyword1 = "Other";
+    classify = "Other";
+  } else {
+    keyword1 = "";
+    classify = "";
+  }
+  console.log(genreSelection);
+
+  var startDate = document.getElementById("datepicker-start").value;
+  var endDate = document.getElementById("datepicker-end").value;
+  console.log("Start: " + startDate + " End Date: " + endDate);
+
+  var StartDateNew =
+    moment(startDate, "MM/DD/YYYY").format("YYYY-MM-DD") + "T00:00:00Z";
+  console.log("NewStart: " + StartDateNew);
+  var EndDateNew =
+    moment(endDate, "MM/DD/YYYY").format("YYYY-MM-DD") + "T15:00:00Z";
+  console.log("NewEnd: " + EndDateNew);
+
+  var distance = document.getElementById("distance");
+  var distanceSelection = distance.options[distance.selectedIndex].value;
+  console.log(distanceSelection);
+
+  if (distanceSelection === "10") {
+    radius = "10";
+  } else if (distanceSelection === "25") {
+    radius = "25";
+  } else if (distanceSelection === "50") {
+    radius = "50";
+  } else if (distanceSelection === "75") {
+    radius = "75";
+  } else {
+    radius = "";
+  }
+
+  var sorting = document.getElementById("sort");
+  var sortSelection = sorting.options[sorting.selectedIndex].value;
+  console.log(sortSelection);
+
+  if (sortSelection === "date") {
+    sortSelect = "date";
+  } else if (sortSelection === "distance") {
+    sortSelect = "distance";
+  } else {
+    sortSelect = "relevance";
+  }
+
+  /*
+function dateRange(){
+  $("#dateRange1").datepicker();
+  console.log("here");
+}
+*/
+
+  fetch(
+    // Make a fetch request to Wikipedia to get a random article title
+    //`// YOUR CODE HERE`
+    //
+
+    "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=" +
+      StartDateNew +
+      "&endDateTime=" +
+      EndDateNew +
+      "&latlong=" +
+      userLat +
+      "," +
+      userLong +
+      "&radius=" +
+      radius +
+      "&unit=miles&classificationName=[" +
+      classify +
+      ']&keyword="' +
+      keyword1 +
+      '"&sort=' +
+      sortSelect +
+      ",asc&apikey=sn3YzS5u3eeoiEBigTAhQPKYhKDI8yUA"
+  )
+    .then(function (ticketMasterResponse) {
+      //take the response and convert it to JavaScript
+      return ticketMasterResponse.json();
+    })
+    .then(function (ticketMasterResponse) {
+      //wikiResponse is available as a JavaScript Object here
+
+      console.log(ticketMasterResponse);
+
+      var eventsArraySize = ticketMasterResponse._embedded.events.length;
+      console.log("Events array size: " + eventsArraySize);
+      for (var i = 0; i < eventsArraySize; i++) {
+        var butt1 = document.createElement("button");
+        butt1.setAttribute("id", i);
+        var content = document.createElement("div");
+        content.setAttribute("id", i);
+        var icon = document.createElement("img");
+        icon.setAttribute("id", i);
+        icon.classList.add("images");
+        icon.setAttribute(
+          "src",
+          ticketMasterResponse._embedded.events[i].images[9].url
+        );
+        //ticketMasterResponse.embedded.events[0].images[0];
+        var EventDate = document.createElement("h4");
+        var unixDate =
+          ticketMasterResponse._embedded.events[i].dates.start.dateTime;
+        console.log("Unix Date: " + unixDate);
+
+        //"dddd, MMMM Do, YYYY h:mm:ss A"
+        var humanDate = moment(unixDate.substring(0, 10)).format("MMM DD, ddd");
+        var humanTime = moment(unixDate.substring(11, 19), "h:mm:ss").format(
+          "hh:mm A"
+        );
+
+        console.log("Human Date: " + humanDate);
+        console.log("Human Time: " + humanTime);
+        EventDate.setAttribute("id", i);
+        EventDate.setAttribute("class", "date" + i);
+        EventDate.innerHTML = humanDate + "<br/>" + humanTime;
+        var EventTitle = document.createElement("h4");
+        EventTitle.setAttribute("id", i);
+        var name = ticketMasterResponse._embedded.events[i].name;
+        console.log("Name: " + name);
+        EventTitle.innerHTML = name;
+        var EventLocation = document.createElement("p");
+        EventLocation.setAttribute("id", i);
+        var location =
+          ticketMasterResponse._embedded.events[i]._embedded.venues[0].name +
+          " - " +
+          ticketMasterResponse._embedded.events[i]._embedded.venues[0].city
+            .name +
+          ", " +
+          ticketMasterResponse._embedded.events[i]._embedded.venues[0].state
+            .stateCode;
+        console.log("Location: " + location);
+        EventLocation.innerHTML = location;
+
+        content.appendChild(icon);
+        content.appendChild(EventTitle);
+        content.appendChild(EventDate);
+
+        content.appendChild(EventLocation);
+        butt1.appendChild(content);
+
+        var lineBreak = document.createElement("br");
+        var lineBreak2 = document.createElement("br");
+        //lineBreak.innerHTML = "<br/>";
+        document.getElementById("displayEvents").appendChild(butt1);
+        document.getElementById("displayEvents").appendChild(lineBreak);
+        document.getElementById("displayEvents").appendChild(lineBreak2);
+      }
+
+      document
+        .getElementById("displayEvents")
+        .addEventListener("click", function (e) {
+          //console.log(event.target.tagName);
+
+          if (
+            e.target &&
+            (event.target.tagName === "BUTTON" ||
+              event.target.tagName === "DIV" ||
+              event.target.tagName === "H4" ||
+              event.target.tagName === "IMG" ||
+              event.target.tagName === "P")
+          ) {
+            eventID = event.target.getAttribute("id");
+            var event_Name =
+              ticketMasterResponse._embedded.events[eventID].name;
+            var event_Date = document.querySelector(".date" + eventID)
+              .textContent;
+            console.log(document.getElementsByClassName("0"));
+            var venue_Lat =
+              ticketMasterResponse._embedded.events[eventID]._embedded.venues[0]
+                .location.latitude;
+            var venue_Long =
+              ticketMasterResponse._embedded.events[eventID]._embedded.venues[0]
+                .location.longitude;
+
+            console.log("Event Name " + event_Name);
+            console.log("Date " + event_Date);
+            console.log("Lat " + venue_Lat);
+            console.log("Long" + venue_Long);
+            updateArray(event_Name, event_Date, venue_Lat, venue_Long);
+            document.querySelector("#EventsPage").style.display = "none";
+          }
+        });
+    });
+}
+
+$(function () {
+  $("#datepicker-start").datepicker();
+  $("#datepicker-end").datepicker();
+});
 
 /***DIRECTIONS PAGE***/
 //sets map generic details on load
@@ -249,7 +477,7 @@ function getRoute(userCityResponse) {
 
 //Save trip function
 function saveTrip() {
-  localStorage.setItem("cities", JSON.stringify(trips))
+  localStorage.setItem("cities", JSON.stringify(trips));
 }
 
 //My Trips Page
