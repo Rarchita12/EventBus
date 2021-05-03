@@ -1,3 +1,8 @@
+.images {
+  height: 200px;
+  width: 200px;
+}
+
 .ui-datepicker {
   width: 300px;
   height: 300px;
@@ -14,7 +19,7 @@
 .ui-datepicker-header {
   background: #3399ff;
   color: #ffffff;
-  font-family: "Times New Roman";
+  font-family: Arial, sans-serif;
   border-width: 1px 0 0 0;
   border-style: solid;
   border-color: #111;
@@ -23,18 +28,21 @@
 .ui-datepicker-title {
   text-align: center;
   font-size: 15px;
+  font-weight: 600;
 }
 
 .ui-datepicker-prev {
   float: left;
   cursor: pointer;
   background-position: center -30px;
+  padding-left: 5px;
 }
 
 .ui-datepicker-next {
   float: right;
   cursor: pointer;
   background-position: center 0px;
+  padding-right: 5px;
 }
 
 .ui-datepicker thead {
@@ -44,9 +52,8 @@
 }
 
 .ui-datepicker th {
-  background-color: #808080;
   text-transform: uppercase;
-  font-size: 8pt;
+  font-size: 9pt;
   color: #666666;
   /*text-shadow: 1px 0px 0px #fff;*/
   /*filter: dropshadow(color=#fff, offx=1, offy=0);*/

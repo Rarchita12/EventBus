@@ -15,32 +15,25 @@
 
   <body>
     <!--Events Page-->
-    <div>
-      <h1>We found # events</h1>
-      <h2>Near location</h2>
+    <div id="EventsPage">
+      <!--<h1>We found # events</h1>
+      <h2>Near location</h2>-->
 
       <select name="genres" id="genres">
         <option value="default" selected disabled hidden>
           Select Your Category
         </option>
-        <option value="All Categories">All Categories</option>
+        <option value="AllCategories">All Categories</option>
         <option value="Concerts">Concerts</option>
         <option value="Sports">Sports</option>
-        <option value="ArtsTheater">Arts & Theatre</option>
+        <option value="ArtsTheatre">Arts & Theatre</option>
         <option value="Family">Family</option>
         <option value="Film">Film</option>
         <option value="Other">Other</option>
       </select>
 
-      <select name="dates" id="dates">
-        <option value="default" selected disabled hidden>
-          Select Your Dates
-        </option>
-        <option value="allDates">All Dates</option>
-        <option value="weekend">This Weekend</option>
-
-        <option id="dateRange1" value="dateRange">Date Range</option>
-      </select>
+      <span>Enter Start Date: <input type="text" id="datepicker-start" /></span>
+      <span>Enter End Date: <input type="text" id="datepicker-end" /></span>
 
       <select name="distance" id="distance">
         <option value="default" selected disabled hidden>
@@ -53,28 +46,29 @@
         <option value="All">Distance: All (mi)</option>
       </select>
 
+      <select name="sort" id="sort">
+        <option value="relevance">Sort By: Most Relevant</option>
+        <option value="date">Sort By: Date</option>
+        <option value="distance">Sort By: Distance</option>
+      </select>
+
       <button type="submit" onclick="getUserInfo()">Submit</button>
 
       <br />
-      <div>
-        <select name="sort" id="sort">
-          <option value="relevant">Sort By: Most Relevant</option>
-          <option value="date">Sort By: Date</option>
-          <option value="distance">Sort By: Distance</option>
-        </select>
-      </div>
 
-      <!-- The Modal -->
+      <br />
+      <!-- The Modal 
       <div id="myModal" class="modal" style="display: none">
-        <!-- Modal content -->
+       
         <div class="modal-content">
           <p>Date: <input type="text" id="datepicker" /></p>
         </div>
       </div>
-
+    -->
       <!--List Events-->
-      <div></div>
+      <div id="displayEvents"></div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="./assets/js/script.js"></script>

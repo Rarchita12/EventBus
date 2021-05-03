@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style></style>
+  </head>
+  <body>
+    <button style="width: 80%; height: 150px; margin-left: 200px">
+      <div
+        class="card"
+        style="
+          display: flex;
+          align-items: center;
+          flex-direction: row;
+          justify-content: space-evenly;
+          max-width: 30%;
+        "
+      >
+        <img src="" alt="Avatar" />
+
+        <h4>Date</h4>
+        <h4>Title</h4>
+        <p>Event Location</p>
+      </div>
+    </button>
+    <br />
+    <br />
+    <button style="width: 80%; height: 150px; margin-left: 200px">
+      <div
+        class="card"
+        style="
+          display: flex;
+          align-items: center;
+          flex-direction: row;
+          justify-content: space-evenly;
+          max-width: 30%;
+        "
+      >
+        <img src="" alt="Avatar" />
+        <span class="container">
+          <h4><b>John Doe</b></h4>
+          <p>Architect & Engineer</p>
+        </span>
+      </div>
+    </button>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      var testObject = [
+        { name: "test", time: "Date 2017-02-03T08:38:04.449Z" },
+      ];
+
+      localStorage.setItem(1, JSON.stringify(testObject));
+      var retrievedObject = localStorage.getItem(1);
+      var obj = JSON.parse(retrievedObject);
+      console.log(obj[0].time);
+    </script>
+  </body>
+</html>
