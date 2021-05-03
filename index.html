@@ -45,31 +45,27 @@
         <label for="street">Street</label>
         <input
           type="text"
-          placeholder="Enter Your Street Address"
+          placeholder="123 Street"
           id="user-street"
           name="street"
         />
         <label for="city">City</label>
         <input
           type="text"
-          placeholder="Enter Your City"
+          placeholder="Beverly Hills"
           id="user-city"
           name="city"
         />
         <label for="state">State</label>
         <input
+          maxlength="2"
           type="text"
-          placeholder="Enter Your State"
+          placeholder="CA"
           id="user-state"
           name="state"
         />
         <label for="zip">Zip Code</label>
-        <input
-          type="text"
-          placeholder="Enter Your Zip Code"
-          id="user-zip"
-          name="zip"
-        />
+        <input type="text" placeholder="90210" id="user-zip" name="zip" />
 
         <button id="user-info-btn" type="submit">Next</button>
       </form>
@@ -165,9 +161,6 @@
       <h2>My Trips</h2>
       <div id="trips-container">
         <div id="trip-list">
-          <div>Example Trip 1</div>
-          <div>Example Trip 2</div>
-          <div>Example Trip 3</div>
         </div>
         <button id="plan-another-btn">Plan Another Trip!</button>
       </div>

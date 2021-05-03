@@ -1,4 +1,5 @@
 //Global Variables
+var myTrips = [];
 var userCity;
 //Test Fetches
 //ticketmaster
@@ -85,8 +86,9 @@ function convertCity(userStreet, userCity, userState, userZip) {
     url: geocodingURL,
     method: "GET",
   }).then(function (userCityResponse) {
-    console.log(userCityResponse);
     getRoute(userCityResponse);
+    console.clear();
+    console.log("Matched User City =", userCityResponse.features[0].place_name);
     //displayEventsPage(userCityResponse);
   });
 }
@@ -110,7 +112,7 @@ var end;
 function getRoute(userCityResponse) {
   let userLong = userCityResponse.features[0].center[0];
   let userLat = userCityResponse.features[0].center[1];
-  console.log(userLat, userLong);
+  console.log("Starting Point", userLat, userLong);
   var start = [userLong, userLat];
   // var end = [-97.75554333304073, 30.23216688535965];
   var end = [-96.80300088039094, 32.78745518007029];
@@ -235,11 +237,19 @@ function getRoute(userCityResponse) {
       tripInstructions.push("<br><li>" + steps[i].maneuver.instruction) +
         "</li>";
       instructions.innerHTML =
-        '<br><span class="duration">Trip duration: ' +
+        '<span class="duration">Trip duration: ' +
         Math.floor(data.duration / 60) +
         " min </span>" +
         tripInstructions;
     }
+    console.log("Route Information", route);
   };
   req.send();
 }
+
+//Save trip function
+function saveTrip() {
+  localStorage.setItem("cities", JSON.stringify(trips))
+}
+
+//My Trips Page
