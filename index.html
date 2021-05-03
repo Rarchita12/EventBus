@@ -11,13 +11,15 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <!--Foundation CDN Link-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
     <title>EventBus</title>
   </head>
 
   <body>
     <!--Hero Section-->
-    <section class="hero">
-      <div class="hero-div">
+    <section class="Hero">
+      <div>
         <h1>EventBus</h1>
       </div>
     </section>
@@ -31,7 +33,7 @@
         you find the specific genre or Category of event to suit your needs. Use
         EventBus to find your next social event today!~
       </p>
-      <button id="get-started-btn" onclick="othername();" type="submit">
+      <button id="get-started-btn" onclick="othername();" type="submit" class ="expanded button" href = "#">
         Get Started!
       </button>
     </div>
@@ -66,7 +68,7 @@
         <label for="zip">Zip Code</label>
         <input type="text" placeholder="90210" id="user-zip" name="zip" />
 
-        <button id="user-info-btn" type="submit">Next</button>
+        <button id="user-info-btn" type="submit" class ="small button" href = "#">Next</button>
       </form>
     </div>
 
@@ -109,7 +111,7 @@
         <option value="All">Distance: All (mi)</option>
       </select>
 
-      <button id="test-btn" type="submit">Submit</button>
+      <button id="test-btn" type="submit" class ="small button" href = "#">Submit</button>
 
       <br />
       <div>
@@ -150,9 +152,9 @@
         <div id="map" style="width: 400px; height: 300px"></div>
       </div>
       <!--Directions Page Buttons-->
-      <div id="btn-container">
-        <button id="confirm-trip-btn">Save Trip</button>
-        <button id="start-over-btn">Start Over</button>
+      <div id="btn-container" class = "button-group">
+        <button id="confirm-trip-btn" class = "button">Save Trip</button>
+        <button id="start-over-btn" class = "button">Start Over</button>
       </div>
     </div>
     <!--My Trips Page-->
@@ -160,10 +162,13 @@
       <h2>My Trips</h2>
       <div id="trips-container">
         <div id="trip-list"></div>
-        <button id="plan-another-btn">Plan Another Trip!</button>
+        <button id="plan-another-btn" class ="large button" href = "#">Plan Another Trip!</button>
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="./assets/js/script.js"></script>
+    <!--Compressed Foundation-->
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+
   </body>
 </html>
