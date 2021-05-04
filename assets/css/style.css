@@ -122,6 +122,7 @@
   font-family: sans-serif;
   font-size: 0.8em;
   line-height: 2em;
+  max-height: 300px;
 }
 
 .duration {
@@ -133,5 +134,60 @@
 }
 
 h3 {
+  text-align: center;
   margin-bottom: 0px;
+}
+
+.hero {
+  text-align: center;
+  background-color: dodgerblue;
+}
+
+.genre-select {
+  width: 200px;
+}
+
+.dates-select {
+  width: 200px;
+}
+
+.distance-select {
+  width: 200px;
+}
+
+.sort-select {
+  width: 200px;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 0px;
+}
+
+.intro-h3 {
+  text-align: center;
+}
+
+.form-size {
+  width: 500px;
+}
+
+.select-position {
+  position: relative;
+}
+
+.button {
+  border-radius: 100px;
+}
+
+#address-page {
+padding-left: 30px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.button-group{
+  margin-top: 30px;
 }
