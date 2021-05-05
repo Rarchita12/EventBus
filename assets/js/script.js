@@ -292,6 +292,7 @@ async function getUserInfo() {
         for (var i = 0; i < eventsArraySize; i++) {
           var butt1 = document.createElement("button");
           butt1.setAttribute("id", i);
+          butt1.classList.add("event-btn");
           var content = document.createElement("div");
           content.setAttribute("id", i);
           var icon = document.createElement("img");

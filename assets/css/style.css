@@ -154,7 +154,7 @@ h3 {
 
 .hero {
   text-align: center;
-  background-color: dodgerblue;
+  background-color: #14679e;
 }
 
 h1 {
@@ -208,4 +208,25 @@ h2 {
 
 .button-group {
   margin-top: 30px;
+}
+
+.event-btn{
+  border: 5px solid #14679e;
+  border-radius: 5px;
+  /*background-color: lightgrey;*/
+  margin-top: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+::placeholder{
+  color: #000;
+}
+
+.medium-2{
+  margin-right: 10px;
+}
+
+#my-trips-page{
+  text-align: center;
 }

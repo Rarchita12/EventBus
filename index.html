@@ -97,7 +97,7 @@
       <!--Foundation Grid containing the selects and the submit btn-->
       <div class="grid-container">
         <div class="grid-x grid-padding-x select-position">
-          <div class="medium-3 cell">
+          <div class="small-12 medium-2 medium-offset-1 columns">
             <select name="genres" id="genres" class="genre-select">
               <option value="default" selected disabled hidden>
                 Select Your Category
@@ -111,13 +111,15 @@
               <option value="Other">Other</option>
             </select>
           </div>
-          <div class="medium-3 cell">
-
-            <span class="dates-select">Enter Start Date: <input type="text" id="datepicker-start" /></span>
-            <span class="dates-select">Enter End Date: <input type="text" id="datepicker-end" /></span>
-
+          <!--<div class="small-1 cell"></div>-->
+          <div class="small-12 medium-2 columns">
+            <span class="dates-select"> <input type="text" id="datepicker-start" placeholder="Enter Start Date:"/></span>
           </div>
-          <div class="medium-3 cell">
+          <div class="small-12 medium-2 columns">
+            <span class="dates-select"><input type="text" id="datepicker-end" placeholder="Enter End Date:"/></span>
+          </div>
+          <!--<div class="small-1 cell"></div>-->
+          <div class="small-12 medium-2 columns">
             <select name="distance" id="distance" class="distance-select">
               <option value="default" selected disabled hidden>
                 Select Your Distance
@@ -129,7 +131,8 @@
               <option value="All">Distance: All (mi)</option>
             </select>
           </div>
-          <div class="medium-3 cell">
+          <!--<div class="small-1 cell"></div>-->
+          <div class="small-12 medium-2 columns end">
             <select name="sort" id="sort" class="sort-select">
               <option value="relevant">Sort By: Most Relevant</option>
               <option value="date">Sort By: Date</option>
