@@ -20,10 +20,13 @@
     <!--Hero Section-->
     <section class="hero">
       <div>
-        <h1>EventBus</h1>
+        <h1 id="title">EventBus</h1>
       </div>
+     
     </section>
-    <!--End Hero Section-->
+    <div class="hero2"> </div>
+    <!--End Hero Section
+    <img src="./assets/images/roadmap-digital-transformation.jpg" alt="">-->
     <!--Intro Page-->
     <div id="intro-page">
       <div class="grid-container">
@@ -41,7 +44,7 @@
               </p>
             </div>
             <div class="large-4 medium-4 cell"></div>
-              <button id="get-started-btn" onclick="othername();" type="submit" class ="expanded button buttonCustom" href = "#">
+              <button id="get-started-btn" type="submit" class ="expanded button buttonCustom" href = "#">
                 Get Started!
               </button>
             </div>
@@ -87,9 +90,9 @@
     </div>
 
     <!--Events Page-->
-    <div id="events-page" class="hide">
-      <h1 style="text-align: center;">We found # events</h1>
-      <h2 style="text-align: center;">Near location</h2>
+    <div id="EventsPage" class="hide">
+      <h1 id="numEvents"></h1>
+      <h2 id="userLocation"></h2>
 
       <!--Foundation Grid containing the selects and the submit btn-->
       <div class="grid-container">
@@ -109,14 +112,10 @@
             </select>
           </div>
           <div class="medium-3 cell">
-            <select name="dates" id="dates" class="dates-select">
-              <option value="default" selected disabled hidden>
-                Select Your Dates
-              </option>
-              <option value="allDates">All Dates</option>
-              <option value="weekend">This Weekend</option>
-              <option id="dateRange1" value="dateRange">Date Range</option>
-            </select>
+
+            <span class="dates-select">Enter Start Date: <input type="text" id="datepicker-start" /></span>
+            <span class="dates-select">Enter End Date: <input type="text" id="datepicker-end" /></span>
+
           </div>
           <div class="medium-3 cell">
             <select name="distance" id="distance" class="distance-select">
@@ -138,71 +137,44 @@
             </select>
           </div>
             <div class="medium-12">
-              <button id="test-btn" type="submit" class ="expanded button" href = "#">Submit</button>
+              <button id="test-btn" onclick="getUserInfo()" type="submit" class ="expanded button" href = "#">Submit</button>
             </div>
           </div>
         </div>
-      </div>
+      
       <!--<div class="submit-container">
         <div class="submit-btn">
           <button id="test-btn" type="submit" class ="large button" href = "#">Submit</button>
         </div>
       </div>-->
 
-      <!-- The Modal -->
-      <div id="myModal" class="modal" style="display: none">
-        <!-- Modal content -->
-        <div class="modal-content">
-          <p>Date: <input type="text" id="datepicker" /></p>
-        </div>
-      </div>
       <!--List Events-->
-      <div></div>
+      <div id="displayEvents"></div>
     </div>
 
     <!--Directions Page-->
     <div id="directions-page" class="hide">
-      <h2 id="directionsPageHeader">Test</h2>
-      <h3>Here Is How To Get There!</h3>
+      <h2 id="directionsPageHeader">Here Is How To Get There!</h2>
+     <!-- <h3>Here Is How To Get There!</h3>-->
       <div class="grid-container">
         <div class="grid-x grid-padding-x">
           <div id="directions-container" class="large-6 medium-6 cell">
-            <h3>Using Words!</h3>
+            
             <div id="instructions">
               <!--Enter Written Directions Here-->
-              Trip duration: 179 min </br>
-              Drive northeast.,</br>
-              Turn left.,</br>
-              Turn left.,</br>
-              Turn right.,</br>
-              Turn left onto Seton Center Parkway.,</br>
-              Turn left onto West Braker Lane.,</br>
-              Turn left onto North Mopac Expressway.,</br>
-              Take the Loop 1 North ramp on the left.,</br>
-              Keep right to take TX 45 East/Loop 1 North toward I 35.,</br>
-              Keep left to take I 35 North/Toll 45 East.,</br>
-              Take the I 35 North exit toward Waco.,</br>
-              Keep right to take I 35E toward Dallas.,</br>
-              Keep left to stay on I 35E North.,</br>
-              Take exit 428 toward I 45/US 75.,</br>
-              Keep left to take Spur 366 East/Woodall Rodgers Freeway toward I 45/US 75.,</br>
-              Take the Field Street exit.,</br>
-              Turn right onto Magnolia Street.,</br>
-              Turn right onto McKinney Avenue.,</br>
-              Turn right onto North Akard Street.,</br>
-              Your destination is on the right.</br>
+              
             </div>
           </div>
           <!--Map Container-->
           <div id="map-container" class="large-6 medium-6 cell">
-            <h3>Using Pictures!</h3>
+            
             <div id="map" style="width: 400px; height: 300px"></div>
           </div>
         </div>
         <!--Directions Page Buttons-->
         <div id="btn-container" class = "button-group align-center">
           <button id="confirm-trip-btn" class = "button">Save Trip</button>
-          <button id="start-over-btn" class = "button">Start Over</button>
+         <!-- <button id="start-over-btn" class = "button">Start Over</button> -->
         </div>
       </div>
     </div>
@@ -215,9 +187,12 @@
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="./assets/js/script.js"></script>
-    <!--Compressed Foundation-->
-    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+     <!--Compressed Foundation-->
+     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
 
+    <script src="./assets/js/displayEvents.js"></script>
+   
   </body>
 </html>
