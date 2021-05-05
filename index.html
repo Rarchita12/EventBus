@@ -12,6 +12,12 @@
     />
     <!--Foundation CDN Link-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <!--Font-Load-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito&display=swap"
+      rel="stylesheet"
+    />
+    <!--CSS Stylesheet-->
     <link rel="stylesheet" href="./assets/css/style.css"/>
     <title class="title">EventBus</title>
   </head>
@@ -22,7 +28,6 @@
       <div>
         <h1 id="title">EventBus</h1>
       </div>
-     
     </section>
     <div class="hero2"> </div>
     <!--End Hero Section
@@ -37,10 +42,7 @@
             </div>
             <div class="large-4 medium-4 cell"></div>
               <p>
-                EventBus is a site to find any type of nearby event and plan a route to
-                it. If you want a specific type of event the filter dropdown can help
-                you find the specific genre or Category of event to suit your needs. Use
-                EventBus to find your next social event today!~
+                EventBus is a site to find any type of nearby event and plan a route to it. If you want a specific type of event, the filter dropdown can help you find the specific Genre or Category of event to suit your needs.  EventBus even gives you an optimized route to the venue! Use EventBus to find your next social event today!~
               </p>
             </div>
             <div class="large-4 medium-4 cell"></div>
@@ -52,47 +54,52 @@
         </div>
       </div>
     </div>
+
+  
     <!--User Information Page-->
-    <div id="address-page" class="hide">
-      <div>
+    <div id="address-page" class="hide grid-x">
+      <div class ="address-page-info">
         <h2>Enter Your Address!</h2>
         <h3>We need your address to help find the events nearest you!</h3>
       </div>  
       <!--Input Form for Address-->
-      <form class="form-size">
-        <label for="street" class="input-label">Street</label>
-        <input
-          type="text"
-          placeholder="123 Street"
-          id="user-street"
-          name="street"
-        />
-        <label for="city" class="input-label">City</label>
-        <input
-          type="text"
-          placeholder="Beverly Hills"
-          id="user-city"
-          name="city"
-        />
-        <label for="state" class="input-label">State</label>
-        <input
-          maxlength="2"
-          type="text"
-          placeholder="CA"
-          id="user-state"
-          name="state"
-        />
-        <label for="zip" class="input-label">Zip Code</label>
-        <input type="text" placeholder="90210" id="user-zip" name="zip" />
-
-        <button id="user-info-btn" type="submit" class ="small button" href = "#">Next</button>
-      </form>
+      <div class="user-input-form">
+        <form class="form-size">
+          <label for="street" class="input-label">Street</label>
+          <input
+            type="text"
+            placeholder="123 Street"
+            id="user-street"
+            name="street"
+          />
+          <label for="city" class="input-label">City</label>
+          <input
+            type="text"
+            placeholder="Beverly Hills"
+            id="user-city"
+            name="city"
+          />
+          <label for="state" class="input-label">State</label>
+          <input
+            maxlength="2"
+            type="text"
+            placeholder="CA"
+            id="user-state"
+            name="state"
+          />
+          <label for="zip" class="input-label">Zip Code</label>
+          <input type="text" placeholder="90210" id="user-zip" name="zip" 
+          />
+          <button id="user-info-btn" type="submit" class ="small button" href = "#">Next</button>
+        </form>
+      </div>
     </div>
 
     <!--Events Page-->
     <div id="EventsPage" class="hide">
-      <h1 id="numEvents"></h1>
-      <h2 id="userLocation"></h2>
+      <p>Use the filters to find some events!</p>
+      <h2 id="numEvents"></h2>
+      <h3 id="userLocation"></h3>
 
       <!--Foundation Grid containing the selects and the submit btn-->
       <div class="grid-container">
@@ -193,9 +200,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
      <!--Compressed Foundation-->
-     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
-
+    <!-- <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>-->
     <script src="./assets/js/script.js"></script>
-   
   </body>
 </html>
