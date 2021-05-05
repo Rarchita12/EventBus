@@ -1,18 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--MapBox Map Initializer-->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <!--Foundation CDN Link-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <!--Font-Load-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito&display=swap"
+      rel="stylesheet"
+    />
+    <!--CSS Stylesheet-->
+    <link rel="stylesheet" href="./assets/css/style.css"/>
+    <title class="title">EventBus</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
-  <title>EventBus</title>
-</head>
+  <body>
+    <!--Hero Section-->
+    <section class="hero">
+      <div>
+        <h1 id="title">EventBus</h1>
+      </div>
+    </section>
+    <div class="hero2"> </div>
+    <!--End Hero Section
+    <img src="./assets/images/roadmap-digital-transformation.jpg" alt="">-->
+    <!--Intro Page-->
+    <div id="intro-page">
+      <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+          <div class="large-12 cell">
+            <div class="large-4 medium-4 cell">
+              <h3>What we do!</h3>
+            </div>
+            <div class="large-4 medium-4 cell"></div>
+              <p>
+                EventBus is a site to find any type of nearby event and plan a route to it. If you want a specific type of event, the filter dropdown can help you find the specific Genre or Category of event to suit your needs.  EventBus even gives you an optimized route to the venue! Use EventBus to find your next social event today!~
+              </p>
+            </div>
+            <div class="large-4 medium-4 cell"></div>
+              <button id="get-started-btn" type="submit" class ="expanded button buttonCustom" href = "#">
+                Get Started!
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<body>
   
-  <script src="./assets/js/script.js"></script>
-</body>
+    <!--User Information Page-->
+    <div id="address-page" class="hide grid-x">
+      <div class ="address-page-info">
+        <h2>Enter Your Address!</h2>
+        <h3>We need your address to help find the events nearest you!</h3>
+      </div>  
+      <!--Input Form for Address-->
+      <div class="user-input-form">
+        <form class="form-size">
+          <label for="street" class="input-label">Street</label>
+          <input
+            type="text"
+            placeholder="123 Street"
+            id="user-street"
+            name="street"
+          />
+          <label for="city" class="input-label">City</label>
+          <input
+            type="text"
+            placeholder="Beverly Hills"
+            id="user-city"
+            name="city"
+          />
+          <label for="state" class="input-label">State</label>
+          <input
+            maxlength="2"
+            type="text"
+            placeholder="CA"
+            id="user-state"
+            name="state"
+          />
+          <label for="zip" class="input-label">Zip Code</label>
+          <input type="text" placeholder="90210" id="user-zip" name="zip" 
+          />
+          <button id="user-info-btn" type="submit" class ="small button" href = "#">Next</button>
+        </form>
+      </div>
+    </div>
 
+    <!--Events Page-->
+    <div id="EventsPage" class="hide">
+      <p>Use the filters to find some events!</p>
+      <h2 id="numEvents"></h2>
+      <h3 id="userLocation"></h3>
+
+      <!--Foundation Grid containing the selects and the submit btn-->
+      <div class="grid-container">
+        <div class="grid-x grid-padding-x select-position">
+          <div class="small-12 medium-2 medium-offset-1 columns">
+            <select name="genres" id="genres" class="genre-select">
+              <option value="default" selected disabled hidden>
+                Select Your Category
+              </option>
+              <option value="All Categories">All Categories</option>
+              <option value="Concerts">Concerts</option>
+              <option value="Sports">Sports</option>
+              <option value="ArtsTheater">Arts & Theatre</option>
+              <option value="Family">Family</option>
+              <option value="Film">Film</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <!--<div class="small-1 cell"></div>-->
+          <div class="small-12 medium-2 columns">
+            <span class="dates-select"> <input type="text" id="datepicker-start" placeholder="Enter Start Date:"/></span>
+          </div>
+          <div class="small-12 medium-2 columns">
+            <span class="dates-select"><input type="text" id="datepicker-end" placeholder="Enter End Date:"/></span>
+          </div>
+          <!--<div class="small-1 cell"></div>-->
+          <div class="small-12 medium-2 columns">
+            <select name="distance" id="distance" class="distance-select">
+              <option value="default" selected disabled hidden>
+                Select Your Distance
+              </option>
+              <option value="10">Distance: 10 mi</option>
+              <option value="25">Distance: 25 mi</option>
+              <option value="50">Distance: 50 mi</option>
+              <option value="75">Distance: 75 mi</option>
+              <option value="All">Distance: All (mi)</option>
+            </select>
+          </div>
+          <!--<div class="small-1 cell"></div>-->
+          <div class="small-12 medium-2 columns end">
+            <select name="sort" id="sort" class="sort-select">
+              <option value="relevant">Sort By: Most Relevant</option>
+              <option value="date">Sort By: Date</option>
+              <option value="distance">Sort By: Distance</option>
+            </select>
+          </div>
+            <div class="medium-12">
+              <button id="test-btn" onclick="getUserInfo()" type="submit" class ="expanded button" href = "#">Submit</button>
+            </div>
+          </div>
+        </div>
+      
+      <!--<div class="submit-container">
+        <div class="submit-btn">
+          <button id="test-btn" type="submit" class ="large button" href = "#">Submit</button>
+        </div>
+      </div>-->
+
+      <!--List Events-->
+      <div id="displayEvents"></div>
+    </div>
+
+    <!--Directions Page-->
+    <div id="directions-page" class="hide">
+      <h2 id="directionsPageHeader">Here Is How To Get There!</h2>
+     <!-- <h3>Here Is How To Get There!</h3>-->
+      <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+          <div id="directions-container" class="large-6 medium-6 cell">
+            
+            <div id="instructions">
+              <!--Enter Written Directions Here-->
+              
+            </div>
+          </div>
+          <!--Map Container-->
+          <div id="map-container" class="large-6 medium-6 cell">
+            
+            <div id="map" style="width: 400px; height: 300px"></div>
+          </div>
+        </div>
+        <!--Directions Page Buttons-->
+        <div id="btn-container" class = "button-group align-center">
+          <button id="confirm-trip-btn" class = "button">Save Trip</button>
+         <!-- <button id="start-over-btn" class = "button">Start Over</button> -->
+        </div>
+      </div>
+    </div>
+    <!--My Trips Page-->
+    <div id="my-trips-page" class="hide">
+      <h2>My Trips</h2>
+      <div id="trips-container">
+        <div id="trip-list"></div>
+        <button id="plan-another-btn" class ="large button" href = "#">Plan Another Trip!</button>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+     <!--Compressed Foundation-->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>-->
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>
