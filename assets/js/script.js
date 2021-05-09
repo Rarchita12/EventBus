@@ -13,12 +13,31 @@ const APIKey =
 var userLocation = [];
 
 //Button Interactions
+//Header - EventBus Header
+$("#title").on("click", function (event) {
+  event.preventDefault();
+  $("#intro-page").removeClass("hide");
+  $("#address-page").addClass("hide");
+  $("#EventsPage").addClass("hide");
+  $("#directions-page").addClass("hide");
+  $("#my-trips-page").addClass("hide");
+});
+//Header - My Trips
+$("#my-trips-nav").on("click", function (event) {
+  event.preventDefault();
+  $("#intro-page").addClass("hide");
+  $("#address-page").addClass("hide");
+  $("#EventsPage").addClass("hide");
+  $("#directions-page").addClass("hide");
+  $("#my-trips-page").removeClass("hide");
+});
 //Intro - Get Started
 $("#get-started-btn").on("click", function (event) {
   event.preventDefault();
   $("#intro-page").addClass("hide");
   $("#address-page").removeClass("hide");
 });
+
 //user-info submit
 $("#user-info-btn").on("click", function (event) {
   event.preventDefault();
@@ -72,6 +91,9 @@ $("#confirm-trip-btn").on("click", function (event) {
       events1.innerHTML = event[2] + " - " + event[3];
       document.getElementById("trip-list").appendChild(events1);
     }
+
+
+    
     /*
 listHighScores.innerHTML +=
       "<p>" +
@@ -399,8 +421,9 @@ async function getUserInfo() {
                 ticketMasterResponse._embedded.events[eventID]._embedded
                   .venues[0].location.longitude;
 
-
-                  var buttEventID =  ticketMasterResponse._embedded.events[eventID].id;
+              var buttEventID =
+                ticketMasterResponse._embedded.events[eventID].id;
+              console.log(buttEventID);
               //console.log("Event Name " + event_Name);
               //console.log("Date " + event_Date);
               //console.log("Lat " + venue_Lat);
@@ -415,7 +438,7 @@ async function getUserInfo() {
               //updateArray(event_Name, event_Date, venue_Lat, venue_Long);
               $("#EventsPage").addClass("hide");
               $("#directions-page").removeClass("hide");
-           
+
               localStorage.setItem(buttEventID, JSON.stringify(userInfo));
 
               getRoute(userInfo);

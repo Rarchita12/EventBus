@@ -1,3 +1,7 @@
+body {
+  min-height:100%;
+}
+
 h1,
 h2,
 h3,
@@ -188,6 +192,7 @@ h1 {
   margin-bottom: 0px;
   color: white;
   font-weight: bolder;
+  cursor: pointer;
 }
 .genre-select {
   width: 200px;
@@ -263,3 +268,21 @@ h2 {
 #my-trips-page {
   text-align: center;
 }
+
+.links {
+  text-align: right;
+  align-self: center;
+}
+
+.nav-button {
+  background-color: rgb(255, 255, 255);
+  border-radius: 0 0 0 15px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 35px 18px 15px 18px;
+}
+
+.nav-button:hover {
+  background-color: rgb(243, 243, 243);
+}
+
