@@ -30,6 +30,7 @@ $("#my-trips-nav").on("click", function (event) {
   $("#EventsPage").addClass("hide");
   $("#directions-page").addClass("hide");
   $("#my-trips-page").removeClass("hide");
+  renderTrips();
 });
 //Intro - Get Started
 $("#get-started-btn").on("click", function (event) {
@@ -72,6 +73,14 @@ $("#confirm-trip-btn").on("click", function (event) {
 
   $("#directions-page").addClass("hide");
   $("#my-trips-page").removeClass("hide");
+  renderTrips();
+});
+
+$("#trip-list").on("click", "p", function (event) {
+  event.preventDefault();
+  console.log("on click trip list works");
+});
+function renderTrips() {
   for (var j = 0; j < localStorage.length; j++) {
     /*  var events1 = document.createElement("p");
     var event = localStorage.getItem(j);
@@ -84,28 +93,21 @@ $("#confirm-trip-btn").on("click", function (event) {
       localStorage.key(j) === "mapbox.eventData:YXdlZ2hvcnN0"
     ) {
     } else {
+      var key = localStorage.key(j);
       var events1 = document.createElement("p");
+      events1.classList.add(key);
       var event = JSON.parse(localStorage.getItem(localStorage.key(j)));
       // var dates = event[5];
-      console.log("This is event[j] =", event[j]);
+      console.log("This is the event id =", event[j]);
       events1.innerHTML = event[2] + " - " + event[3];
       document.getElementById("trip-list").appendChild(events1);
     }
-
-
-    
-    /*
-listHighScores.innerHTML +=
-      "<p>" +
-      (y + 1) +
-      ". " +
-      localStorage.key(y) +
-      " - " +
-      +localStorage.getItem(localStorage.key(y)) +
-      " </p><br/>";
-      */
   }
-});
+}
+// var eventObject = localStorage.getItem(key);
+
+//    var city = $(this).text();
+//  convertCity(eventLat, eventLong);
 
 //Start Over
 /*$("#start-over-btn").on("click", function (event) {
@@ -523,6 +525,7 @@ function getRoute(userInfo) {
     };
     console.log("Center: " + center);
     // if the route already exists on the map, reset it using setData
+  
     map.setCenter(center).setZoom(8);
     if (map.getSource("route")) {
       map.getSource("route").setData(geojson);
