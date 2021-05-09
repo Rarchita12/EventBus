@@ -399,6 +399,8 @@ async function getUserInfo() {
                 ticketMasterResponse._embedded.events[eventID]._embedded
                   .venues[0].location.longitude;
 
+
+                  var buttEventID =  ticketMasterResponse._embedded.events[eventID].id;
               //console.log("Event Name " + event_Name);
               //console.log("Date " + event_Date);
               //console.log("Lat " + venue_Lat);
@@ -413,8 +415,8 @@ async function getUserInfo() {
               //updateArray(event_Name, event_Date, venue_Lat, venue_Long);
               $("#EventsPage").addClass("hide");
               $("#directions-page").removeClass("hide");
-
-              localStorage.setItem(userInfo[3], JSON.stringify(userInfo));
+           
+              localStorage.setItem(buttEventID, JSON.stringify(userInfo));
 
               getRoute(userInfo);
               getRoute(userInfo);
