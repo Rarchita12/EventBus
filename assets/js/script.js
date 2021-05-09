@@ -1,5 +1,4 @@
-//***USER INFO PAGE***/
-//save user info as an array
+//***Global Variables***/
 var userInfo = [];
 var userLocation = [];
 var userCity;
@@ -8,9 +7,7 @@ var userLong;
 var userLat;
 const APIKey =
   "pk.eyJ1IjoiYXdlZ2hvcnN0IiwiYSI6ImNrbnpianptdzAyYWkzMG85aG52NHY2YnYifQ.XX_caU54wujSY7FkrRplrA";
-//***USER INFO PAGE***/
-//save user info as an array
-var userLocation = [];
+
 
 //Button Interactions
 //Intro - Get Started
@@ -19,6 +16,7 @@ $("#get-started-btn").on("click", function (event) {
   $("#intro-page").addClass("hide");
   $("#address-page").removeClass("hide");
 });
+
 //user-info submit
 $("#user-info-btn").on("click", function (event) {
   event.preventDefault();
@@ -33,32 +31,13 @@ $("#user-info-btn").on("click", function (event) {
   $("#EventsPage").removeClass("hide");
 });
 
-//events-page submit
-/*$("#event-submit-btn").on("click", function (event) {
-  event.preventDefault();
-
-  var userStreet = $("#user-street").val();
-  userCity = $("#user-city").val();
-  var userState = $("#user-state").val();
-  var userZip = $("#user-zip").val();
-  convertCity(userStreet, userState, userZip);
-  $("#events-page").addClass("hide");
-  $("#directions-page").removeClass("hide");
-});
-*/
-//Directions Page
-//directions page save trip
+//Save Trip Button
 $("#confirm-trip-btn").on("click", function (event) {
   event.preventDefault();
 
   $("#directions-page").addClass("hide");
   $("#my-trips-page").removeClass("hide");
   for (var j = 0; j < localStorage.length; j++) {
-    /*  var events1 = document.createElement("p");
-    var event = localStorage.getItem(j);
-    events1.innerHTML = event;
-    document.getElementById("trip-list").appendChild(events1);
-*/
 
     if (
       localStorage.key(j) === "mapbox.eventData.uuid:YXdlZ2hvcnN0" ||
@@ -66,47 +45,31 @@ $("#confirm-trip-btn").on("click", function (event) {
     ) {
     } else {
       var events1 = document.createElement("p");
+      events1.classList.add("pastTrips");
       var event = JSON.parse(localStorage.getItem(localStorage.key(j)));
-      // var dates = event[5];
-      console.log("This is event[j] =", event[j]);
       events1.innerHTML = event[2] + " - " + event[3];
       document.getElementById("trip-list").appendChild(events1);
     }
-    /*
-listHighScores.innerHTML +=
-      "<p>" +
-      (y + 1) +
-      ". " +
-      localStorage.key(y) +
-      " - " +
-      +localStorage.getItem(localStorage.key(y)) +
-      " </p><br/>";
-      */
+    
   }
 });
 
-//Start Over
-/*$("#start-over-btn").on("click", function (event) {
-  event.preventDefault();
- // $( "#address-page" ).load(window.location.href + " #address-page" );
-location.reload();
-  /*
-  $("#address-page").removeClass("hide");
-  $("#directions-page").addClass("hide");
-});
-*/
-//My Trips Page
+
+//Plan Another Trip Button
 $("#plan-another-btn").on("click", function (event) {
   event.preventDefault();
   location.reload();
 });
 
+/**Get Lat/Long based only on city, state code, street, and zip*/
 async function getConvertCity(url) {
   let response = await fetch(url);
   let data = await response.json();
   console.log("getConvertCity =", data);
   return data;
 }
+
+
 /***LATLONG CONVERSION***/
 //convert input to lat/long
 async function convertCity(userCity, userState, userStreet, userZip) {
@@ -120,36 +83,18 @@ async function convertCity(userCity, userState, userStreet, userZip) {
 
   userInfo.push(userLat);
   userInfo.push(userLong);
-
-  //getRoute(convertCityData);
   console.log(convertCityData);
   console.log("Matched User City =", convertCityData.features[0].place_name);
   console.log("User Lat and Long =", convertCityData.features[0].center);
   console.log("UserInfo @ ConvertCity = ", userInfo);
-  /*$.ajax({
-    url: geocodingURL,
-    method: "GET",
-  }).then(function (userCityResponse) {
-    // getRoute(userCityResponse);
-    // getUserInfo(userCityResponse);
-    //console.clear();
-    console.log("Matched User City =", userCityResponse.features[0].place_name);
-    console.log("User Lat and Long =", userCityResponse.features[0].center);
-    //displayEventsPage(userCityResponse);
-    */
+  
 }
 
-async function getJsonRoute(url) {
-  let response = await fetch(url);
-  let data = await response.json();
-  console.log("getJsonRoute =", data);
-  return data;
-}
 
-async function getJson(url) {
+/**Get Lat/Long based only on city and state code*/
+async function getMapData(url) {
   let response = await fetch(url);
   let data = await response.json();
-  console.log("getJson =", data);
   return data;
 }
 
@@ -159,15 +104,15 @@ async function getUserInfo() {
   document.getElementById("displayEvents").innerHTML = "";
   userCity = $("#user-city").val();
   document.getElementById("userLocation").innerHTML = "Near " + userCity;
-  // document.getElementById("userLocation").style.display = "block";
-  console.log("This is City " + userCity);
+  
   userState = $("#user-state").val();
-  console.log("This is State " + userState);
+  
   let apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${userCity}"%20"${userState}.json?access_token=pk.eyJ1IjoiYXdlZ2hvcnN0IiwiYSI6ImNrbnpianptdzAyYWkzMG85aG52NHY2YnYifQ.XX_caU54wujSY7FkrRplrA`;
-  jsondata = await getJson(apiUrl);
-  console.log(jsondata);
-  cityLong = jsondata.features[0].center[0];
-  cityLat = jsondata.features[0].center[1];
+  //fetch data based only on user city and user state
+  coordinates = await getMapData(apiUrl);
+ 
+  cityLong = coordinates.features[0].center[0];
+  cityLat = coordinates.features[0].center[1];
 
   var genre = document.getElementById("genres");
   var genreSelection = genre.options[genre.selectedIndex].value;
@@ -179,12 +124,41 @@ async function getUserInfo() {
   var userCity = $("#user-city").val();
   var userState = $("#user-state").val();
   var userZip = $("#user-zip").val();
-  //var lat = userCityResponse.features[0].center[1];
-  //var long = userCityResponse.features[0].center[0];
-  //var lat = convertCity(userStreet, userCity, userState, userZip);
-  //console.log(lat);
-  //NEED TO ADD GENRE
-  if (genreSelection === "Sports") {
+ 
+//set keyword and classification based on user genre selection
+if (genreSelection === "Music") {
+  keyword1 = "Music";
+  classify = "Music";
+}
+else if (genreSelection === "Pop") {
+  keyword1 = "Pop";
+  classify = "Pop";
+}
+else if (genreSelection === "Rock") {
+  keyword1 = "Rock";
+  classify = "Rock";
+}
+else if (genreSelection === "Rap") {
+  keyword1 = "Rap";
+  classify = "Rap";
+}
+else if (genreSelection === "Country") {
+  keyword1 = "Country";
+  classify = "Country";
+}
+else if (genreSelection === "Alternative") {
+  keyword1 = "Alternative";
+  classify = "Alternative";
+}
+else if (genreSelection === "Jazz") {
+  keyword1 = "Jazz";
+  classify = "Jazz";
+}
+else if (genreSelection === "Sports") {
+  keyword1 = "Sports";
+  classify = "Sports";
+}
+ else if (genreSelection === "Sports") {
     keyword1 = "Sports";
     classify = "Sports";
   } else if (genreSelection === "ArtsTheatre") {
@@ -200,28 +174,26 @@ async function getUserInfo() {
     keyword1 = "Other";
     classify = "Other";
   } else {
-    // keyword1 = "";
-    // classify = "";
+    
   }
-  console.log(genreSelection);
-  console.log("Keyword " + keyword1);
-  console.log("classify " + classify);
+ 
 
+//Datepicker
   var startDate = document.getElementById("datepicker-start").value;
   var endDate = document.getElementById("datepicker-end").value;
-  console.log("Start: " + startDate + " End Date: " + endDate);
+  
 
   var StartDateNew =
     moment(startDate, "MM/DD/YYYY").format("YYYY-MM-DD") + "T00:00:00Z";
-  console.log("NewStart: " + StartDateNew);
+ 
   var EndDateNew =
     moment(endDate, "MM/DD/YYYY").format("YYYY-MM-DD") + "T15:00:00Z";
-  console.log("NewEnd: " + EndDateNew);
+ 
 
   var distance = document.getElementById("distance");
   var distanceSelection = distance.options[distance.selectedIndex].value;
-  console.log(distanceSelection);
-
+  
+//set radius based on user distance selection
   if (distanceSelection === "10") {
     radius = "10";
   } else if (distanceSelection === "25") {
@@ -236,8 +208,8 @@ async function getUserInfo() {
 
   var sorting = document.getElementById("sort");
   var sortSelection = sorting.options[sorting.selectedIndex].value;
-  console.log(sortSelection);
-
+  
+//set sorting based on user sort selection
   if (sortSelection === "date") {
     sortSelect = "date";
   } else if (sortSelection === "distance") {
@@ -245,19 +217,8 @@ async function getUserInfo() {
   } else {
     sortSelect = "relevance";
   }
-
-  /*
-  function dateRange(){
-    $("#dateRange1").datepicker();
-    console.log("here");
-  }
-  */
-
+//fetch based on user criteria 
   fetch(
-    // Make a fetch request to Wikipedia to get a random article title
-    //`// YOUR CODE HERE`
-    //
-
     "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=" +
       StartDateNew +
       "&endDateTime=" +
@@ -277,24 +238,18 @@ async function getUserInfo() {
       ",asc&includeTBA=no&includeTBD=no&countryCode=us&apikey=sn3YzS5u3eeoiEBigTAhQPKYhKDI8yUA"
   )
     .then(function (ticketMasterResponse) {
-      //take the response and convert it to JavaScript
-      return ticketMasterResponse.json();
+       return ticketMasterResponse.json();
     })
     .then(function (ticketMasterResponse) {
-      //wikiResponse is available as a JavaScript Object here
-
-      console.log(ticketMasterResponse);
-
-      // if(ticketMasterResponse._embedded.events.length ===0){
-      //   document.getElementById("numEvents").innerHTML += "Sorry! We found 0 events. Please Try Again.";
-      // document.getElementById("numEvents").style.display = "block";
-      // }
-      if (ticketMasterResponse._embedded) {
+      
+      //if there are events 
+       if (ticketMasterResponse._embedded) {
         var eventsArraySize = ticketMasterResponse._embedded.events.length;
-        console.log("Events array size: " + eventsArraySize);
+       
         document.getElementById("numEvents").innerHTML +=
           "We found " + eventsArraySize + " events";
         document.getElementById("numEvents").style.display = "block";
+        //display events 
         for (var i = 0; i < eventsArraySize; i++) {
           var butt1 = document.createElement("button");
           butt1.setAttribute("id", i);
@@ -308,19 +263,17 @@ async function getUserInfo() {
             "src",
             ticketMasterResponse._embedded.events[i].images[9].url
           );
-          //ticketMasterResponse.embedded.events[0].images[0];
+         
           var EventDate = document.createElement("h4");
 
           if (!ticketMasterResponse._embedded.events[i].dates.start.dateTime) {
-            //throw Error("ERROR");
+           
             var unixDate = "TBA";
-            //console.log("THIS IS AN ERROR");
+            
           } else {
             var unixDate =
               ticketMasterResponse._embedded.events[i].dates.start.dateTime;
-            //console.log("Unix Date: " + unixDate);
-
-            //"dddd, MMMM Do, YYYY h:mm:ss A"
+          
             var humanDate = moment(unixDate.substring(0, 10)).format(
               "MMM DD, ddd"
             );
@@ -330,15 +283,13 @@ async function getUserInfo() {
             ).format("hh:mm A");
           }
 
-          //console.log("Human Date: " + humanDate);
-          //console.log("Human Time: " + humanTime);
+          
           EventDate.setAttribute("id", i);
           EventDate.setAttribute("class", "date" + i);
           EventDate.innerHTML = humanDate + "<br/>" + humanTime + " GMT";
           var EventTitle = document.createElement("h4");
           EventTitle.setAttribute("id", i);
           var name = ticketMasterResponse._embedded.events[i].name;
-          //console.log("Name: " + name);
           EventTitle.innerHTML = name;
           var EventLocation = document.createElement("p");
           EventLocation.setAttribute("id", i);
@@ -350,7 +301,7 @@ async function getUserInfo() {
             ", " +
             ticketMasterResponse._embedded.events[i]._embedded.venues[0].state
               .stateCode;
-          //console.log("Location: " + location);
+          
           EventLocation.innerHTML = location;
 
           content.appendChild(icon);
@@ -362,16 +313,17 @@ async function getUserInfo() {
 
           var lineBreak = document.createElement("br");
           var lineBreak2 = document.createElement("br");
-          //lineBreak.innerHTML = "<br/>";
+          
           document.getElementById("displayEvents").appendChild(butt1);
           document.getElementById("displayEvents").appendChild(lineBreak);
           document.getElementById("displayEvents").appendChild(lineBreak2);
         }
 
+        //event listener for an event selection
         document
           .getElementById("displayEvents")
           .addEventListener("click", function (e) {
-            //console.log(event.target.tagName);
+         
 
             if (
               e.target &&
@@ -386,12 +338,12 @@ async function getUserInfo() {
                 ticketMasterResponse._embedded.events[eventID].name;
               var event_Date = document.querySelector(".date" + eventID)
                 .textContent;
-              //console.log("This is the event date: " + event_Date);
+              
               var eventdate = event_Date.substring(0, 11);
               var eventdateTime = event_Date.substring(11, 19);
               event_Date = eventdate + " " + eventdateTime;
               date = eventdate + " " + eventdateTime;
-              //console.log(document.getElementsByClassName("0"));
+              
               var venue_Lat =
                 ticketMasterResponse._embedded.events[eventID]._embedded
                   .venues[0].location.latitude;
@@ -399,31 +351,31 @@ async function getUserInfo() {
                 ticketMasterResponse._embedded.events[eventID]._embedded
                   .venues[0].location.longitude;
 
-              //console.log("Event Name " + event_Name);
-              //console.log("Date " + event_Date);
-              //console.log("Lat " + venue_Lat);
-              //console.log("Long" + venue_Long);
-              //   date: , name: , lat: , long:
-              console.log("userInfo @ pre push", userInfo);
+
+                  var buttEventID =  ticketMasterResponse._embedded.events[eventID].id;
+             
+              
               userInfo.push(event_Date);
               userInfo.push(event_Name);
               userInfo.push(venue_Lat);
               userInfo.push(venue_Long);
-              console.log("userInfo @ post push", userInfo);
-              //updateArray(event_Name, event_Date, venue_Lat, venue_Long);
+             
+             
               $("#EventsPage").addClass("hide");
               $("#directions-page").removeClass("hide");
-
-              localStorage.setItem(userInfo[3], JSON.stringify(userInfo));
+           
+              localStorage.setItem(buttEventID, JSON.stringify(userInfo));
 
               getRoute(userInfo);
               getRoute(userInfo);
               document.querySelector("#EventsPage").style.display = "none";
-              console.log("userInfo @ end of getevents", userInfo);
+              
               return userInfo;
             }
           });
-      } else {
+      } 
+      //No events, Try Again
+      else {
         document.getElementById("numEvents").innerHTML +=
           "Sorry! We found 0 events. Please Try Again.";
         document.getElementById("numEvents").style.display = "block";
@@ -431,7 +383,7 @@ async function getUserInfo() {
     });
 }
 
-//console.log("The array: " + userInfo);
+//Display Datepicker 
 $(function () {
   $("#datepicker-start").datepicker();
   $("#datepicker-end").datepicker();
@@ -454,12 +406,11 @@ var end;
 
 // create a function to make a directions request
 function getRoute(userInfo) {
-  //console.log("User City Response " + JSON.stringify(jsondata));
-  //console.log("User City Response " + userInfo);
+  
   console.log("userinfo @ getRoute = ", userInfo);
   console.log("Starting Point", userLat, userLong);
   var start = [userLong, userLat];
-  // var end = [-97.75554333304073, 30.23216688535965];7
+  
 
   var end = [userInfo[5], userInfo[4]];
   console.log("EndingPoint: " + end);
@@ -468,7 +419,7 @@ function getRoute(userInfo) {
     (Number(userLat) + Number(end[1])) / 2,
   ];
   console.log("Inside center: " + center);
-  //updateMap(center, start, end);
+ 
   var url =
     "https://api.mapbox.com/directions/v5/mapbox/driving/" +
     start[0] +
