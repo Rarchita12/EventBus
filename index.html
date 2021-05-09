@@ -23,6 +23,7 @@
   </head>
 
   <body>
+    
     <!--Hero Section-->
     <section class="hero">
       <div>
@@ -30,8 +31,8 @@
       </div>
     </section>
     <div class="hero2"> </div>
-    <!--End Hero Section
-    <img src="./assets/images/roadmap-digital-transformation.jpg" alt="">-->
+    <!--End Hero Section-->
+    
     <!--Intro Page-->
     <div id="intro-page">
       <div class="grid-container">
@@ -110,7 +111,14 @@
                 Select Your Category
               </option>
               <option value="All Categories">All Categories</option>
-              <option value="Concerts">Concerts</option>
+              <option value="Music">All Concerts</option>
+              <option value="Pop">Concerts - Pop</option>
+              <option value="Rock">Concerts - Rock</option>
+              <option value="Rap">Concerts - Rap</option>
+              <option value="Country">Concerts - Country</option>
+              <option value="Alternative">Concerts - Alternative</option>
+              <option value="Classical">Concerts - Classical</option>
+              <option value="Jazz">Concerts - Blues & Jazz</option>
               <option value="Sports">Sports</option>
               <option value="ArtsTheater">Arts & Theatre</option>
               <option value="Family">Family</option>
@@ -118,14 +126,14 @@
               <option value="Other">Other</option>
             </select>
           </div>
-          <!--<div class="small-1 cell"></div>-->
+          
           <div class="small-12 medium-2 columns">
             <span class="dates-select"> <input type="text" id="datepicker-start" placeholder="Enter Start Date:"/></span>
           </div>
           <div class="small-12 medium-2 columns">
             <span class="dates-select"><input type="text" id="datepicker-end" placeholder="Enter End Date:"/></span>
           </div>
-          <!--<div class="small-1 cell"></div>-->
+         
           <div class="small-12 medium-2 columns">
             <select name="distance" id="distance" class="distance-select">
               <option value="default" selected disabled hidden>
@@ -138,7 +146,7 @@
               <option value="All">Distance: All (mi)</option>
             </select>
           </div>
-          <!--<div class="small-1 cell"></div>-->
+       
           <div class="small-12 medium-2 columns end">
             <select name="sort" id="sort" class="sort-select">
               <option value="relevant">Sort By: Most Relevant</option>
@@ -152,12 +160,7 @@
           </div>
         </div>
       
-      <!--<div class="submit-container">
-        <div class="submit-btn">
-          <button id="test-btn" type="submit" class ="large button" href = "#">Submit</button>
-        </div>
-      </div>-->
-
+      
       <!--List Events-->
       <div id="displayEvents"></div>
     </div>
@@ -165,13 +168,13 @@
     <!--Directions Page-->
     <div id="directions-page" class="hide">
       <h2 id="directionsPageHeader">Here Is How To Get There!</h2>
-     <!-- <h3>Here Is How To Get There!</h3>-->
+     
       <div class="grid-container">
         <div class="grid-x grid-padding-x">
           <div id="directions-container" class="large-6 medium-6 cell">
             
             <div id="instructions">
-              <!--Enter Written Directions Here-->
+             
               
             </div>
           </div>
@@ -184,7 +187,7 @@
         <!--Directions Page Buttons-->
         <div id="btn-container" class = "button-group align-center">
           <button id="confirm-trip-btn" class = "button">Save Trip</button>
-         <!-- <button id="start-over-btn" class = "button">Start Over</button> -->
+        
         </div>
       </div>
     </div>
@@ -196,6 +199,17 @@
         <button id="plan-another-btn" class ="large button" href = "#">Plan Another Trip!</button>
       </div>
     </div>
+    <!--
+    <footer>
+      <div class="row">
+        <div class="medium-4 medium-centered columns">Hop on the EventBus, we’ll take you where you’re going!</div>
+        <div class="medium-4 medium-centered columns">Made by the EventBus Team - Alex Weghorst, Nathaniel Ayala, & Archita Racherla</div>
+      
+      </div>
+    -->
+    </div>
+  </footer>
+  
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
