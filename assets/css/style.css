@@ -1,3 +1,12 @@
+/*General CSS */
+body {
+  max-height: 100vh;
+}
+
+.hide {
+  display: none !important;
+}
+
 h1,
 h2,
 h3,
@@ -8,11 +17,77 @@ p {
   font-family: "Nunito";
 }
 
-.hero2 {
+h1:hover {
+  cursor: pointer;
+}
+
+h2 {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+p {
+  text-align: center;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 0px;
+  color: white;
+  font-weight: bolder;
+  cursor: pointer;
+}
+.medium-2 {
+  margin-right: 10px;
+}
+
+.button {
+  border-radius: 100px;
+}
+
+/*Header*/
+.header {
+  text-align: center;
+  background-color: #14679e;
+}
+.links {
+  text-align: right;
+  align-self: center;
+}
+
+.nav-button {
+  background-color: rgb(255, 255, 255);
+
+  border-radius: 15px 0 0 15px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 15px 18px 15px 18px;
+}
+
+.nav-button:hover {
+  background-color: rgb(255, 255, 255);
+  border: 3px solid white;
+  border-radius: 15px 0 0 15px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 15px 18px 15px 18px;
+}
+
+.hero {
   background-image: url("../images/roadmap-digital-transformation2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 200px;
+}
+
+/*Address Page */
+#address-page {
+  display: flex;
+  text-align: center;
+  justify-content: center;
 }
 
 .user-input-form {
@@ -22,17 +97,61 @@ p {
 .address-page-info {
   width: 100%;
 }
-
-.images {
-  height: 200px;
-  width: 200px;
+.form-size {
+  width: 500px;
 }
 
+#address-page ::placeholder {
+  text-align: center;
+}
+
+/*Events Page*/
 #EventsPage p {
   margin-top: 10px;
   margin-bottom: 0px;
   font-size: 20px;
 }
+
+.dates-select ::placeholder {
+  color: black;
+}
+.genre-select {
+  width: 200px;
+}
+
+.dates-select {
+  width: 200px;
+}
+
+.distance-select {
+  width: 200px;
+}
+
+.sort-select {
+  width: 200px;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 0px;
+}
+
+.select-position {
+  position: relative;
+}
+.images {
+  height: 200px;
+  width: 200px;
+}
+.event-btn {
+  border: 5px solid #14679e;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 30px;
+}
+/*Datepicker*/
 .ui-datepicker {
   width: 300px;
   height: 300px;
@@ -142,6 +261,10 @@ p {
   color: #000;
 }
 
+/*Directions Page*/
+#directions-page {
+  margin-bottom: 15px;
+}
 #instructions {
   padding: 0px 20px 20px 20px;
   background-color: rgba(255, 255, 255, 0.9);
@@ -156,127 +279,36 @@ p {
   font-size: 1.2em;
 }
 
-.hide {
-  display: none !important;
-}
-
-h3 {
-  text-align: center;
-  margin-bottom: 0px;
-}
-
-.hero {
-  text-align: center;
-  background-color: #14679e;
-}
-
-p {
-  text-align: center;
-}
-h1 {
-  text-align: center;
-  margin-bottom: 0px;
-  color: white;
-  font-weight: bolder;
-}
-.genre-select {
-  width: 200px;
-}
-
-.dates-select {
-  width: 200px;
-}
-
-.distance-select {
-  width: 200px;
-}
-
-.sort-select {
-  width: 200px;
-}
-
-.submit-btn {
-  width: 100%;
-  margin-top: 0px;
-}
-
-.intro-h3 {
-  text-align: center;
-}
-
-.form-size {
-  width: 500px;
-}
-
-.select-position {
-  position: relative;
-}
-
-.button {
-  border-radius: 100px;
-}
-
-#address-page {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-}
-
-h2 {
-  text-align: center;
-}
-
 .button-group {
   margin-top: 30px;
 }
 
-.event-btn {
-  border: 5px solid #14679e;
-  border-radius: 5px;
-  margin-top: 10px;
-  cursor: pointer;
-  width: 100%;
+/*Past Trips*/
+#my-trips-page {
+  text-align: center;
 }
 
 .pastTrips {
   border: 5px solid #14679e;
   border-radius: 5px;
   margin-top: 10px;
-
   width: 60%;
 }
-#address-page ::placeholder {
-  text-align: center;
-}
-
-.dates-select ::placeholder {
-  color: black;
-}
-
-.medium-2 {
-  margin-right: 10px;
-}
-
-#my-trips-page {
-  text-align: center;
-}
-
 #trip-list {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/*
-
-footer {
-  bottom: 2px;
-  height: 40px;
-  margin-top: 40px;
-  text-align: center;
-  vertical-align: middle;
-  position: absolute;
+/*Footer*/
+#footer {
+  margin-top: 50px;
+  bottom: 0;
+  left: 0%;
   width: 100%;
-  margin-bottom: 10px;
+  text-align: center;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #14679e;
 }
-*/
