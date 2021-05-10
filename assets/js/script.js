@@ -8,7 +8,6 @@ var userLat;
 const APIKey =
   "pk.eyJ1IjoiYXdlZ2hvcnN0IiwiYSI6ImNrbnpianptdzAyYWkzMG85aG52NHY2YnYifQ.XX_caU54wujSY7FkrRplrA";
 
-
 //Button Interactions
 //Header - EventBus Header
 $("#title").on("click", function (event) {
@@ -59,33 +58,56 @@ $("#confirm-trip-btn").on("click", function (event) {
   renderTrips();
 });
 
-$("#trip-list").on("click", "p", function (event) {
+$("#trip-list").on("click", ".pastTrips", function (event) {
   event.preventDefault();
+  var latLong = event.target.getAttribute("id");
+  console.log(latLong);
+  var trip = document.getElementById("#trip-list");
   console.log("on click trip list works");
+  trip = $(this).html();
+  console.log(trip);
+  var array = latLong.split(",");
+  var venueLat = array[0];
+  var venueLong = array[1];
+  console.log(venueLat, venueLong);
+
+
+
+
+  //userInfo = [userLong, userLat, "", "", venueLong, venueLat];
 });
+
+function pastTripDisplay(hiddenSpan) {
+  getRoute(hiddenSpan);
+}
+
 function renderTrips() {
   for (var j = 0; j < localStorage.length; j++) {
-
     if (
       localStorage.key(j) === "mapbox.eventData.uuid:YXdlZ2hvcnN0" ||
       localStorage.key(j) === "mapbox.eventData:YXdlZ2hvcnN0"
     ) {
     } else {
-      var key = localStorage.key(j);
       var events1 = document.createElement("p");
+      var hiddenSpan = document.createElement("span");
       events1.classList.add("pastTrips");
       var event = JSON.parse(localStorage.getItem(localStorage.key(j)));
       events1.innerHTML = event[2] + " - " + event[3];
+      var venueLatLong = (hiddenSpan.innerHTML = event[4] + "," + event[5]);
+      hiddenSpan.classList.add("hide");
+      events1.setAttribute("id", venueLatLong);
+      events1.append(hiddenSpan);
       document.getElementById("trip-list").appendChild(events1);
+      console.log(event);
+  
     }
-    
   }
 }
+
 // var eventObject = localStorage.getItem(key);
 
 //    var city = $(this).text();
 //  convertCity(eventLat, eventLong);
-
 
 //Plan Another Trip Button
 $("#plan-another-btn").on("click", function (event) {
@@ -100,7 +122,6 @@ async function getConvertCity(url) {
   console.log("getConvertCity =", data);
   return data;
 }
-
 
 /***LATLONG CONVERSION***/
 //convert input to lat/long
@@ -119,9 +140,7 @@ async function convertCity(userCity, userState, userStreet, userZip) {
   console.log("Matched User City =", convertCityData.features[0].place_name);
   console.log("User Lat and Long =", convertCityData.features[0].center);
   console.log("UserInfo @ ConvertCity = ", userInfo);
-  
 }
-
 
 /**Get Lat/Long based only on city and state code*/
 async function getMapData(url) {
@@ -136,13 +155,13 @@ async function getUserInfo() {
   document.getElementById("displayEvents").innerHTML = "";
   userCity = $("#user-city").val();
   document.getElementById("userLocation").innerHTML = "Near " + userCity;
-  
+
   userState = $("#user-state").val();
-  
+
   let apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${userCity}"%20"${userState}.json?access_token=pk.eyJ1IjoiYXdlZ2hvcnN0IiwiYSI6ImNrbnpianptdzAyYWkzMG85aG52NHY2YnYifQ.XX_caU54wujSY7FkrRplrA`;
   //fetch data based only on user city and user state
   coordinates = await getMapData(apiUrl);
- 
+
   cityLong = coordinates.features[0].center[0];
   cityLat = coordinates.features[0].center[1];
 
@@ -156,41 +175,33 @@ async function getUserInfo() {
   var userCity = $("#user-city").val();
   var userState = $("#user-state").val();
   var userZip = $("#user-zip").val();
- 
-//set keyword and classification based on user genre selection
-if (genreSelection === "Music") {
-  keyword1 = "Music";
-  classify = "Music";
-}
-else if (genreSelection === "Pop") {
-  keyword1 = "Pop";
-  classify = "Pop";
-}
-else if (genreSelection === "Rock") {
-  keyword1 = "Rock";
-  classify = "Rock";
-}
-else if (genreSelection === "Rap") {
-  keyword1 = "Rap";
-  classify = "Rap";
-}
-else if (genreSelection === "Country") {
-  keyword1 = "Country";
-  classify = "Country";
-}
-else if (genreSelection === "Alternative") {
-  keyword1 = "Alternative";
-  classify = "Alternative";
-}
-else if (genreSelection === "Jazz") {
-  keyword1 = "Jazz";
-  classify = "Jazz";
-}
-else if (genreSelection === "Sports") {
-  keyword1 = "Sports";
-  classify = "Sports";
-}
- else if (genreSelection === "Sports") {
+
+  //set keyword and classification based on user genre selection
+  if (genreSelection === "Music") {
+    keyword1 = "Music";
+    classify = "Music";
+  } else if (genreSelection === "Pop") {
+    keyword1 = "Pop";
+    classify = "Pop";
+  } else if (genreSelection === "Rock") {
+    keyword1 = "Rock";
+    classify = "Rock";
+  } else if (genreSelection === "Rap") {
+    keyword1 = "Rap";
+    classify = "Rap";
+  } else if (genreSelection === "Country") {
+    keyword1 = "Country";
+    classify = "Country";
+  } else if (genreSelection === "Alternative") {
+    keyword1 = "Alternative";
+    classify = "Alternative";
+  } else if (genreSelection === "Jazz") {
+    keyword1 = "Jazz";
+    classify = "Jazz";
+  } else if (genreSelection === "Sports") {
+    keyword1 = "Sports";
+    classify = "Sports";
+  } else if (genreSelection === "Sports") {
     keyword1 = "Sports";
     classify = "Sports";
   } else if (genreSelection === "ArtsTheatre") {
@@ -206,26 +217,22 @@ else if (genreSelection === "Sports") {
     keyword1 = "Other";
     classify = "Other";
   } else {
-    
   }
- 
 
-//Datepicker
+  //Datepicker
   var startDate = document.getElementById("datepicker-start").value;
   var endDate = document.getElementById("datepicker-end").value;
-  
 
   var StartDateNew =
     moment(startDate, "MM/DD/YYYY").format("YYYY-MM-DD") + "T00:00:00Z";
- 
+
   var EndDateNew =
     moment(endDate, "MM/DD/YYYY").format("YYYY-MM-DD") + "T15:00:00Z";
- 
 
   var distance = document.getElementById("distance");
   var distanceSelection = distance.options[distance.selectedIndex].value;
-  
-//set radius based on user distance selection
+
+  //set radius based on user distance selection
   if (distanceSelection === "10") {
     radius = "10";
   } else if (distanceSelection === "25") {
@@ -240,8 +247,8 @@ else if (genreSelection === "Sports") {
 
   var sorting = document.getElementById("sort");
   var sortSelection = sorting.options[sorting.selectedIndex].value;
-  
-//set sorting based on user sort selection
+
+  //set sorting based on user sort selection
   if (sortSelection === "date") {
     sortSelect = "date";
   } else if (sortSelection === "distance") {
@@ -249,7 +256,7 @@ else if (genreSelection === "Sports") {
   } else {
     sortSelect = "relevance";
   }
-//fetch based on user criteria 
+  //fetch based on user criteria
   fetch(
     "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=" +
       StartDateNew +
@@ -270,18 +277,17 @@ else if (genreSelection === "Sports") {
       ",asc&includeTBA=no&includeTBD=no&countryCode=us&apikey=sn3YzS5u3eeoiEBigTAhQPKYhKDI8yUA"
   )
     .then(function (ticketMasterResponse) {
-       return ticketMasterResponse.json();
+      return ticketMasterResponse.json();
     })
     .then(function (ticketMasterResponse) {
-      
-      //if there are events 
-       if (ticketMasterResponse._embedded) {
+      //if there are events
+      if (ticketMasterResponse._embedded) {
         var eventsArraySize = ticketMasterResponse._embedded.events.length;
-       
+
         document.getElementById("numEvents").innerHTML +=
           "We found " + eventsArraySize + " events";
         document.getElementById("numEvents").style.display = "block";
-        //display events 
+        //display events
         for (var i = 0; i < eventsArraySize; i++) {
           var butt1 = document.createElement("button");
           butt1.setAttribute("id", i);
@@ -295,17 +301,15 @@ else if (genreSelection === "Sports") {
             "src",
             ticketMasterResponse._embedded.events[i].images[9].url
           );
-         
+
           var EventDate = document.createElement("h4");
 
           if (!ticketMasterResponse._embedded.events[i].dates.start.dateTime) {
-           
             var unixDate = "TBA";
-            
           } else {
             var unixDate =
               ticketMasterResponse._embedded.events[i].dates.start.dateTime;
-          
+
             var humanDate = moment(unixDate.substring(0, 10)).format(
               "MMM DD, ddd"
             );
@@ -315,7 +319,6 @@ else if (genreSelection === "Sports") {
             ).format("hh:mm A");
           }
 
-          
           EventDate.setAttribute("id", i);
           EventDate.setAttribute("class", "date" + i);
           EventDate.innerHTML = humanDate + "<br/>" + humanTime + " GMT";
@@ -333,7 +336,7 @@ else if (genreSelection === "Sports") {
             ", " +
             ticketMasterResponse._embedded.events[i]._embedded.venues[0].state
               .stateCode;
-          
+
           EventLocation.innerHTML = location;
 
           content.appendChild(icon);
@@ -345,7 +348,7 @@ else if (genreSelection === "Sports") {
 
           var lineBreak = document.createElement("br");
           var lineBreak2 = document.createElement("br");
-          
+
           document.getElementById("displayEvents").appendChild(butt1);
           document.getElementById("displayEvents").appendChild(lineBreak);
           document.getElementById("displayEvents").appendChild(lineBreak2);
@@ -355,8 +358,6 @@ else if (genreSelection === "Sports") {
         document
           .getElementById("displayEvents")
           .addEventListener("click", function (e) {
-         
-
             if (
               e.target &&
               (event.target.tagName === "BUTTON" ||
@@ -370,12 +371,12 @@ else if (genreSelection === "Sports") {
                 ticketMasterResponse._embedded.events[eventID].name;
               var event_Date = document.querySelector(".date" + eventID)
                 .textContent;
-              
+
               var eventdate = event_Date.substring(0, 11);
               var eventdateTime = event_Date.substring(11, 19);
               event_Date = eventdate + " " + eventdateTime;
               date = eventdate + " " + eventdateTime;
-              
+
               var venue_Lat =
                 ticketMasterResponse._embedded.events[eventID]._embedded
                   .venues[0].location.latitude;
@@ -383,29 +384,27 @@ else if (genreSelection === "Sports") {
                 ticketMasterResponse._embedded.events[eventID]._embedded
                   .venues[0].location.longitude;
 
+              var buttEventID =
+                ticketMasterResponse._embedded.events[eventID].id;
 
-                  var buttEventID =  ticketMasterResponse._embedded.events[eventID].id;
-             
-              
               userInfo.push(event_Date);
               userInfo.push(event_Name);
               userInfo.push(venue_Lat);
               userInfo.push(venue_Long);
-             
-             
+
               $("#EventsPage").addClass("hide");
               $("#directions-page").removeClass("hide");
-           
+
               localStorage.setItem(buttEventID, JSON.stringify(userInfo));
 
               getRoute(userInfo);
               getRoute(userInfo);
               document.querySelector("#EventsPage").style.display = "none";
-              
+
               return userInfo;
             }
           });
-      } 
+      }
       //No events, Try Again
       else {
         document.getElementById("numEvents").innerHTML +=
@@ -415,7 +414,7 @@ else if (genreSelection === "Sports") {
     });
 }
 
-//Display Datepicker 
+//Display Datepicker
 $(function () {
   $("#datepicker-start").datepicker();
   $("#datepicker-end").datepicker();
@@ -438,11 +437,9 @@ var end;
 
 // create a function to make a directions request
 function getRoute(userInfo) {
-  
   console.log("userinfo @ getRoute = ", userInfo);
   console.log("Starting Point", userLat, userLong);
   var start = [userLong, userLat];
-  
 
   var end = [userInfo[5], userInfo[4]];
   console.log("EndingPoint: " + end);
@@ -451,7 +448,7 @@ function getRoute(userInfo) {
     (Number(userLat) + Number(end[1])) / 2,
   ];
   console.log("Inside center: " + center);
- 
+
   var url =
     "https://api.mapbox.com/directions/v5/mapbox/driving/" +
     start[0] +
@@ -481,7 +478,7 @@ function getRoute(userInfo) {
     };
     console.log("Center: " + center);
     // if the route already exists on the map, reset it using setData
-  
+
     map.setCenter(center).setZoom(8);
     if (map.getSource("route")) {
       map.getSource("route").setData(geojson);
