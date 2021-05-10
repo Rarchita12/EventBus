@@ -28,6 +28,7 @@ $("#my-trips-nav").on("click", function (event) {
   $("#my-trips-page").removeClass("hide");
   renderTrips();
 });
+
 //Intro - Get Started
 $("#get-started-btn").on("click", function (event) {
   event.preventDefault();
@@ -58,23 +59,19 @@ $("#confirm-trip-btn").on("click", function (event) {
   renderTrips();
 });
 
+//My Trips Functionality
 $("#trip-list").on("click", ".pastTrips", function (event) {
   event.preventDefault();
   var latlong = JSON.parse(event.target.getAttribute("id"));
-     
-  
+
   $("#my-trips-page").addClass("hide");
   $("#directions-page").removeClass("hide");
 
-  
-getRoute(latlong);
-getRoute(latlong);
-
+  getRoute(latlong);
+  getRoute(latlong);
 });
 
-
-
-
+//Render Trips Function
 function renderTrips() {
   document.getElementById("trip-list").innerHTML = " ";
   for (var j = 0; j < localStorage.length; j++) {
@@ -83,7 +80,6 @@ function renderTrips() {
       localStorage.key(j) === "mapbox.eventData:YXdlZ2hvcnN0"
     ) {
     } else {
-     
       var events1 = document.createElement("p");
       var hiddenSpan = document.createElement("span");
       events1.classList.add("pastTrips");
@@ -92,16 +88,12 @@ function renderTrips() {
       var venueLatLong = (hiddenSpan.innerHTML = event[4] + "," + event[5]);
       hiddenSpan.classList.add("hide");
       events1.setAttribute("id", localStorage.getItem(localStorage.key(j)));
-      
+
       events1.append(hiddenSpan);
       document.getElementById("trip-list").appendChild(events1);
-      
-  
     }
   }
 }
-
-
 
 //Plan Another Trip Button
 $("#plan-another-btn").on("click", function (event) {
@@ -129,7 +121,6 @@ async function convertCity(userCity, userState, userStreet, userZip) {
 
   userInfo.push(userLat);
   userInfo.push(userLong);
- 
 }
 
 /**Get Lat/Long based only on city and state code*/
@@ -386,7 +377,6 @@ async function getUserInfo() {
               $("#directions-page").removeClass("hide");
 
               localStorage.setItem(buttEventID, JSON.stringify(userInfo));
-              
 
               getRoute(userInfo);
               getRoute(userInfo);
@@ -428,19 +418,14 @@ var end;
 
 // create a function to make a directions request
 function getRoute(userInfo) {
-  
-  
   var start = [userInfo[1], userInfo[0]];
 
   var end = [userInfo[5], userInfo[4]];
 
-  
   var center = [
     (Number(userInfo[1]) + Number(end[0])) / 2,
     (Number(userInfo[0]) + Number(end[1])) / 2,
   ];
- 
-  
 
   var url =
     "https://api.mapbox.com/directions/v5/mapbox/driving/" +
@@ -469,13 +454,12 @@ function getRoute(userInfo) {
         coordinates: route,
       },
     };
-   
+
     // if the route already exists on the map, reset it using setData
 
     map.setCenter(center).setZoom(8);
     if (map.getSource("route")) {
       map.getSource("route").setData(geojson);
-      
     } else {
       // otherwise, make a new request
       //route display
@@ -503,61 +487,6 @@ function getRoute(userInfo) {
           "line-opacity": 0.75,
         },
       });
-
-      /*Start and End Point
-      // Add starting point to the map
-      map.addLayer({
-        id: "point",
-        type: "circle",
-        source: {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: [
-              {
-                type: "Feature",
-                properties: {},
-                geometry: {
-                  type: "Point",
-                  coordinates: [userInfo[1], userInfo[0]],
-                },
-              },
-            ],
-          },
-        },
-        paint: {
-          "circle-radius": 6,
-          "circle-color": "#FF0000",
-        },
-      });
-      // Add ending point to the map
-      console.log("This is the end: " + end);
-      map.addLayer({
-        id: "endpoint",
-        type: "circle",
-        source: {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: [
-              {
-                type: "Feature",
-                properties: {},
-                geometry: {
-                  type: "Point",
-                  coordinates: end,
-                
-                },
-              },
-            ],
-          },
-        },
-        paint: {
-          "circle-radius": 6,
-          "circle-color": "#FF0000",
-        },
-      });
-      */
     }
 
     // Display the written instructions
@@ -566,16 +495,15 @@ function getRoute(userInfo) {
 
     var tripInstructions = [];
     for (var i = 0; i < steps.length; i++) {
-      tripInstructions.push("<br><li>" + steps[i].maneuver.instruction.slice(0,-1)) +
-        "</li>";
+      tripInstructions.push(
+        "<br><li>" + steps[i].maneuver.instruction.slice(0, -1)
+      ) + "</li>";
       instructions.innerHTML =
         '<span class="duration">Trip duration: ' +
         Math.floor(data.duration / 60) +
         " min </span>" +
         tripInstructions;
     }
-    
   };
   req.send();
-  
 }
