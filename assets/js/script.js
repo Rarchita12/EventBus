@@ -60,34 +60,30 @@ $("#confirm-trip-btn").on("click", function (event) {
 
 $("#trip-list").on("click", ".pastTrips", function (event) {
   event.preventDefault();
-  var latLong = event.target.getAttribute("id");
-  console.log(latLong);
-  var trip = document.getElementById("#trip-list");
-  console.log("on click trip list works");
-  trip = $(this).html();
-  console.log(trip);
-  var array = latLong.split(",");
-  var venueLat = array[0];
-  var venueLong = array[1];
-  console.log(venueLat, venueLong);
+  var latlong = JSON.parse(event.target.getAttribute("id"));
+     
+  
+  $("#my-trips-page").addClass("hide");
+  $("#directions-page").removeClass("hide");
 
+  
+getRoute(latlong);
+getRoute(latlong);
 
-
-
-  //userInfo = [userLong, userLat, "", "", venueLong, venueLat];
 });
 
-function pastTripDisplay(hiddenSpan) {
-  getRoute(hiddenSpan);
-}
+
+
 
 function renderTrips() {
+  document.getElementById("trip-list").innerHTML = " ";
   for (var j = 0; j < localStorage.length; j++) {
     if (
       localStorage.key(j) === "mapbox.eventData.uuid:YXdlZ2hvcnN0" ||
       localStorage.key(j) === "mapbox.eventData:YXdlZ2hvcnN0"
     ) {
     } else {
+     
       var events1 = document.createElement("p");
       var hiddenSpan = document.createElement("span");
       events1.classList.add("pastTrips");
@@ -95,19 +91,17 @@ function renderTrips() {
       events1.innerHTML = event[2] + " - " + event[3];
       var venueLatLong = (hiddenSpan.innerHTML = event[4] + "," + event[5]);
       hiddenSpan.classList.add("hide");
-      events1.setAttribute("id", venueLatLong);
+      events1.setAttribute("id", localStorage.getItem(localStorage.key(j)));
+      
       events1.append(hiddenSpan);
       document.getElementById("trip-list").appendChild(events1);
-      console.log(event);
+      
   
     }
   }
 }
 
-// var eventObject = localStorage.getItem(key);
 
-//    var city = $(this).text();
-//  convertCity(eventLat, eventLong);
 
 //Plan Another Trip Button
 $("#plan-another-btn").on("click", function (event) {
@@ -119,7 +113,6 @@ $("#plan-another-btn").on("click", function (event) {
 async function getConvertCity(url) {
   let response = await fetch(url);
   let data = await response.json();
-  console.log("getConvertCity =", data);
   return data;
 }
 
@@ -131,15 +124,12 @@ async function convertCity(userCity, userState, userStreet, userZip) {
   let geocodingURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${userStreet}"%20"${userCity}"%20"${userState}"%20"${userZip}.json?access_token=${APIKey}`;
 
   let convertCityData = await getConvertCity(geocodingURL);
-  userLong = convertCityData.features[0].center[0];
-  userLat = convertCityData.features[0].center[1];
+  userLong = String(convertCityData.features[0].center[0]);
+  userLat = String(convertCityData.features[0].center[1]);
 
   userInfo.push(userLat);
   userInfo.push(userLong);
-  console.log(convertCityData);
-  console.log("Matched User City =", convertCityData.features[0].place_name);
-  console.log("User Lat and Long =", convertCityData.features[0].center);
-  console.log("UserInfo @ ConvertCity = ", userInfo);
+ 
 }
 
 /**Get Lat/Long based only on city and state code*/
@@ -396,6 +386,7 @@ async function getUserInfo() {
               $("#directions-page").removeClass("hide");
 
               localStorage.setItem(buttEventID, JSON.stringify(userInfo));
+              
 
               getRoute(userInfo);
               getRoute(userInfo);
@@ -437,17 +428,19 @@ var end;
 
 // create a function to make a directions request
 function getRoute(userInfo) {
-  console.log("userinfo @ getRoute = ", userInfo);
-  console.log("Starting Point", userLat, userLong);
-  var start = [userLong, userLat];
+  
+  
+  var start = [userInfo[1], userInfo[0]];
 
   var end = [userInfo[5], userInfo[4]];
-  console.log("EndingPoint: " + end);
+
+  
   var center = [
-    (Number(userLong) + Number(end[0])) / 2,
-    (Number(userLat) + Number(end[1])) / 2,
+    (Number(userInfo[1]) + Number(end[0])) / 2,
+    (Number(userInfo[0]) + Number(end[1])) / 2,
   ];
-  console.log("Inside center: " + center);
+ 
+  
 
   var url =
     "https://api.mapbox.com/directions/v5/mapbox/driving/" +
@@ -476,12 +469,13 @@ function getRoute(userInfo) {
         coordinates: route,
       },
     };
-    console.log("Center: " + center);
+   
     // if the route already exists on the map, reset it using setData
 
     map.setCenter(center).setZoom(8);
     if (map.getSource("route")) {
       map.getSource("route").setData(geojson);
+      
     } else {
       // otherwise, make a new request
       //route display
@@ -509,6 +503,8 @@ function getRoute(userInfo) {
           "line-opacity": 0.75,
         },
       });
+
+      /*Start and End Point
       // Add starting point to the map
       map.addLayer({
         id: "point",
@@ -523,7 +519,7 @@ function getRoute(userInfo) {
                 properties: {},
                 geometry: {
                   type: "Point",
-                  coordinates: [userLong, userLat],
+                  coordinates: [userInfo[1], userInfo[0]],
                 },
               },
             ],
@@ -535,6 +531,7 @@ function getRoute(userInfo) {
         },
       });
       // Add ending point to the map
+      console.log("This is the end: " + end);
       map.addLayer({
         id: "endpoint",
         type: "circle",
@@ -549,6 +546,7 @@ function getRoute(userInfo) {
                 geometry: {
                   type: "Point",
                   coordinates: end,
+                
                 },
               },
             ],
@@ -559,6 +557,7 @@ function getRoute(userInfo) {
           "circle-color": "#FF0000",
         },
       });
+      */
     }
 
     // Display the written instructions
@@ -567,7 +566,7 @@ function getRoute(userInfo) {
 
     var tripInstructions = [];
     for (var i = 0; i < steps.length; i++) {
-      tripInstructions.push("<br><li>" + steps[i].maneuver.instruction) +
+      tripInstructions.push("<br><li>" + steps[i].maneuver.instruction.slice(0,-1)) +
         "</li>";
       instructions.innerHTML =
         '<span class="duration">Trip duration: ' +
@@ -575,8 +574,8 @@ function getRoute(userInfo) {
         " min </span>" +
         tripInstructions;
     }
-    console.log("Route Information", route);
+    
   };
   req.send();
-  console.log("userInfo @ end of getRoute", userInfo);
+  
 }
